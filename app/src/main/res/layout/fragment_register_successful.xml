@@ -6,26 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".RegisterSuccessfulFragment">
 
-    <Button
-        android:id="@+id/loginBtn"
+    <TextView
+        android:id="@+id/registerSuccessfulWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:width="150dp"
-        android:text="@string/loginBtn"
+        android:text="@string/successfulRegister"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/registerSuccessfulUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
+        android:fontFamily="monospace"
+        tools:text="username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerSuccessfulWelcome" />
+
     <Button
-        android:id="@+id/registerBtn"
+        android:id="@+id/registerOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:width="150dp"
-        android:text="@string/registerBtn"
+        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
-
+        app:layout_constraintTop_toBottomOf="@+id/registerSuccessfulUsername" />
 </androidx.constraintlayout.widget.ConstraintLayout>

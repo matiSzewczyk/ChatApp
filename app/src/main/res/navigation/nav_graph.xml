@@ -3,28 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/HomeFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.chatapp.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.chatapp.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginSuccessfulFragment"
+            app:destination="@id/loginSuccessfulFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.chatapp.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_registerSuccessfulFragment"
+            app:destination="@id/registerSuccessfulFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginSuccessfulFragment"
+        android:name="com.example.chatapp.LoginSuccessfulFragment"
+        android:label="fragment_login_successful"
+        tools:layout="@layout/fragment_login_successful" >
+        <argument android:name="username" />
+    </fragment>
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.chatapp.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerSuccessfulFragment"
+        android:name="com.example.chatapp.RegisterSuccessfulFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <argument android:name="username" />
+    </fragment>
 </navigation>

@@ -9,4 +9,7 @@
     <string name="confirmPasswordHint">confirm password</string>
     <string name="confirmLoginBtn">Login</string>
     <string name="confirmRegisterBtn">Register</string>
+    <string name="successfulRegister">Successfully registered!</string>
+    <string name="successfulLogin">Successfully Logged in!</string>
+    <string name="okBtn">OK</string>
 </resources>
