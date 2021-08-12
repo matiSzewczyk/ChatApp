@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loginBtn">Login</string>
     <string name="registerBtn">Register</string>
+    <string name="emailHint">email</string>
     <string name="usernameHint">username</string>
     <string name="passwordHint">password</string>
     <string name="confirmPasswordHint">confirm password</string>

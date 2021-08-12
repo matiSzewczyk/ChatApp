@@ -8,18 +8,20 @@ import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
 
 lateinit var chatApp: App
+lateinit var config: RealmConfiguration
 
 class ChatApp : Application(){
     override fun onCreate() {
         super.onCreate()
 
-        val appId: String = "chatapp-dzbuk"
         Realm.init(this)
+
+        val appId: String = "chatapp-dzbuk"
         chatApp = App(
-            AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
+            AppConfiguration.Builder(appId)
                 .build())
 
-        val config = RealmConfiguration.Builder()
+        config = RealmConfiguration.Builder()
             .name("appdatabase.db")
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)

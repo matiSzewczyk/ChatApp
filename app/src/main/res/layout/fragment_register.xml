@@ -7,15 +7,15 @@
     tools:context=".RegisterFragment">
 
     <EditText
-        android:id="@+id/registerUsername"
+        android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:ems="10"
-        android:hint="@string/usernameHint"
-        android:inputType="textPersonName"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="31dp" />
 
@@ -24,13 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
         android:layout_marginTop="15dp"
+        android:layout_marginRight="45dp"
         android:ems="10"
         android:hint="@string/passwordHint"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
@@ -42,7 +42,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="45dp"
         android:ems="10"
-        android:hint="@string/usernameHint"
+        android:hint="@string/emailHint"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -60,5 +60,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerPasswdConfirm" />
+
+    <EditText
+        android:id="@+id/registerUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="45dp"
+        android:width="150dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/usernameHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
