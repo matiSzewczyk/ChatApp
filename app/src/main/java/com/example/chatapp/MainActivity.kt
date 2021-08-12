@@ -12,15 +12,5 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_ChatApp)
         setContentView(R.layout.activity_main)
 
-        Realm.init(this)
-
-        val config = RealmConfiguration.Builder()
-            .name("appdatabase.db")
-            .allowQueriesOnUiThread(true)
-            .allowWritesOnUiThread(true)
-            .deleteRealmIfMigrationNeeded()
-            .schemaVersion(1)
-            .build()
-        Realm.setDefaultConfiguration(config)
     }
 }

@@ -15,8 +15,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val config = RealmConfiguration.Builder().name("appdatabase.db").allowWritesOnUiThread(true).build()
-        val realm = Realm.getInstance(config)
+        val realm = Realm.getInstance(chatApp)
 
         val usernameInput: EditText = view.findViewById(R.id.registerUsername)
         val passwordInput: EditText = view.findViewById(R.id.registerPasswd)
@@ -28,12 +27,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val username = usernameInput.text.toString()
 
             if (passwd == passwdConfirm) {
-                val action = RegisterFragmentDirections.actionRegisterFragmentToRegisterSuccessfulFragment(username)
-                findNavController().navigate(action)
                 val user = User(username, passwd)
                 realm.executeTransaction { transactionRealm ->
                     transactionRealm.insert(user)
                 }
+                val action = RegisterFragmentDirections.actionRegisterFragmentToRegisterSuccessfulFragment(username)
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Passwords don't match.", Toast.LENGTH_SHORT).show()
                 passwordInput.text.clear()
