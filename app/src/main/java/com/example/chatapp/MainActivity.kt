@@ -2,6 +2,8 @@ package com.example.chatapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class MainActivity : AppCompatActivity() {
 
@@ -9,5 +11,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_ChatApp)
         setContentView(R.layout.activity_main)
+
+        Realm.init(this)
+
+        val config = RealmConfiguration.Builder()
+            .name("appdatabase.db")
+            .allowQueriesOnUiThread(true)
+            .allowWritesOnUiThread(true)
+            .deleteRealmIfMigrationNeeded()
+            .schemaVersion(1)
+            .build()
+        Realm.setDefaultConfiguration(config)
     }
 }
