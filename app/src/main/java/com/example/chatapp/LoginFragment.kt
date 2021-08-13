@@ -19,23 +19,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.confirmLoginBtn).setOnClickListener {
-            val emailInput: EditText = view.findViewById(R.id.loginEmail)
-            val email = emailInput.text.toString()
-            val passwordInput: EditText = view.findViewById(R.id.loginPassword)
-            val password = passwordInput.text.toString()
+            val username = view.findViewById<EditText>(R.id.loginUsername).text.toString()
 
-            val _user = MutableLiveData<User?>()
             var user: User? = null
-            val creds: Credentials = Credentials.emailPassword(email, password)
-                chatApp.loginAsync(creds) {
-                    if (it.isSuccess) {
-                        user = chatApp.currentUser()
-                        val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment("placeholder")
-                        findNavController().navigate(action)
-                    } else {
-                        Toast.makeText(context, "kurzce", Toast.LENGTH_SHORT).show()
-                    }
+            chatApp.loginAsync(Credentials.anonymous()) {
+                if (it.isSuccess) {
+                    user = chatApp.currentUser()
+                    val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(username)
+                    findNavController().navigate(action)
+                } else {
+                    Toast.makeText(context, "kurzce", Toast.LENGTH_SHORT).show()
                 }
+            }
         }
     }
 }

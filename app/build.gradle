@@ -20,7 +20,7 @@ android {
     }
 
     buildTypes {
-        def appId = "chatapp-nmegp"
+        def appId = "chatapp-qwakq"
         debug {
             buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""        }
         release {

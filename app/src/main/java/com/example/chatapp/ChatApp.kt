@@ -17,7 +17,7 @@ class ChatApp : Application(){
 
         Realm.init(this)
 
-        val appId: String = "chatapp-dzbuk"
+        val appId: String = "chatapp-qwakq"
         chatApp = App(
             AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
                 .build())

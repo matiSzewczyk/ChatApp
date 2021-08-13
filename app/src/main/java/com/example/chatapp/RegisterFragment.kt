@@ -32,7 +32,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     if (it.isSuccess) {
                         user = chatApp.currentUser()
                         val action = RegisterFragmentDirections
-                            .actionRegisterFragmentToRegisterSuccessfulFragment(uname)
+                            .actionRegisterFragmentToRegisterSuccessfulFragment("placeholder")
                         findNavController().navigate(action)
                     } else {
                         Toast.makeText(context, "kurzce", Toast.LENGTH_SHORT).show()

@@ -7,33 +7,18 @@
     tools:context=".LoginFragment">
 
     <EditText
-        android:id="@+id/loginEmail"
+        android:id="@+id/loginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="125dp"
         android:ems="10"
-        android:hint="@string/emailHint"
+        android:hint="@string/usernameHint"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <EditText
-        android:id="@+id/loginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="45dp"
-        android:ems="10"
-        android:hint="@string/passwordHint"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
 
 
     <Button
@@ -42,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:width="150dp"
-        android:text="@string/confirmLoginBtn"
+        android:text="@string/connectBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

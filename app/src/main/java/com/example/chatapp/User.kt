@@ -7,8 +7,7 @@ import org.bson.types.ObjectId
 import java.util.*
 
 open class User(
-    var email: String? = null,
-    var password: String? = null
+    var name: String? = null,
 ) : RealmObject() {
     @PrimaryKey @RealmField("_id") var _id: String? = UUID.randomUUID().toString()
 }
