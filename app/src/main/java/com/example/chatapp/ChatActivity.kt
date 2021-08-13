@@ -7,14 +7,19 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.Realm
 import java.util.*
 
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var user: io.realm.mongodb.User? = null
 
     private val chatAdapter = ChatAdapter(mutableListOf())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        user = chatApp.currentUser()
 
         val recyclerView = findViewById<RecyclerView>(R.id.chat)
         recyclerView.adapter = chatAdapter

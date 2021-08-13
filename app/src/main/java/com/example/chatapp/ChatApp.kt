@@ -6,6 +6,7 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
+import io.realm.mongodb.sync.SyncConfiguration
 
 lateinit var chatApp: App
 lateinit var config: RealmConfiguration
@@ -18,17 +19,9 @@ class ChatApp : Application(){
 
         val appId: String = "chatapp-dzbuk"
         chatApp = App(
-            AppConfiguration.Builder(appId)
+            AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
                 .build())
 
-        config = RealmConfiguration.Builder()
-            .name("appdatabase.db")
-            .allowQueriesOnUiThread(true)
-            .allowWritesOnUiThread(true)
-            .deleteRealmIfMigrationNeeded()
-            .schemaVersion(1)
-            .build()
-        Realm.setDefaultConfiguration(config)
     }
 
 
