@@ -1,10 +1,10 @@
 package com.example.chatapp
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,7 +16,7 @@ class ChatAdapter(
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageText: TextView = itemView.findViewById(R.id.messageText)
         val messageTime: TextView = itemView.findViewById(R.id.messageTime)
-        val sendMsgBtn: Button = itemView.findViewById(R.id.sendMsgBtn)
+        private val sendMsgBtn: Button = itemView.findViewById(R.id.sendMsgBtn)
 
         init {
             apply {

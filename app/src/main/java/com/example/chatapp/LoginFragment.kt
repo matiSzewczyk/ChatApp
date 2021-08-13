@@ -1,5 +1,6 @@
 package com.example.chatapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,8 +24,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             chatApp.loginAsync(Credentials.anonymous()) {
                 if (it.isSuccess) {
-                    val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(username)
-                    findNavController().navigate(action)
+                    startActivity(Intent(this.requireContext(), ChatActivity::class.java))
                 } else {
                     Toast.makeText(context, "kurzce", Toast.LENGTH_SHORT).show()
                 }
