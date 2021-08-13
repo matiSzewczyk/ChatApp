@@ -21,10 +21,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         view.findViewById<Button>(R.id.confirmLoginBtn).setOnClickListener {
             val username = view.findViewById<EditText>(R.id.loginUsername).text.toString()
 
-            var user: User? = null
             chatApp.loginAsync(Credentials.anonymous()) {
                 if (it.isSuccess) {
-                    user = chatApp.currentUser()
                     val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(username)
                     findNavController().navigate(action)
                 } else {

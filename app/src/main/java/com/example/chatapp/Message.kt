@@ -1,13 +1,19 @@
 package com.example.chatapp
 
 import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
+import io.realm.annotations.RealmField
 import java.util.*
 
-open class Message(
-    @PrimaryKey
-    var id: String? = null,
-    var messageText: String? = null
-) :RealmObject() {
-    // add a message row
+@RealmClass
+open class Message : RealmObject() {
+    @PrimaryKey @RealmField("_id")
+    var id: String = UUID.randomUUID().toString()
+
+    var message: String = ""
+
+    var time: String = ""
+
 }
