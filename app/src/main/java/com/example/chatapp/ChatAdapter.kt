@@ -17,7 +17,6 @@ class ChatAdapter(
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageText: TextView = itemView.findViewById(R.id.messageText)
         val messageTime: TextView = itemView.findViewById(R.id.messageTime)
-        val sendMsgBtn: Button = itemView.findViewById(R.id.sendMsgBtn)
 
 //        init {
 //            apply {

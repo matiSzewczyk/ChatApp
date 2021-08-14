@@ -53,14 +53,17 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
                 val time = Calendar.getInstance().time.toString()
                 val message = findViewById<EditText>(R.id.chatInput).text.toString()
 
-                val xd = Message()
-                xd.message = message
-                xd.time = time
+                realm.executeTransactionAsync { bgRealm ->
+                    val xd = Message()
+                    xd.message = message
+                    xd.time = time
+                    bgRealm.copyToRealmOrUpdate(xd)
+                }
                 // Call the function and pass message
                 val test = findViewById<TextView>(R.id.messageText)
-                chatAdapter.messages.add(xd)
-                chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
-                viewModel.sendMessage(message, time, test)
+//                chatAdapter.messages.add(xd)
+//                chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
+//                viewModel.sendMessage(message, time, test)
             }
         }
     }
