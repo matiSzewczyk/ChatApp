@@ -2,15 +2,13 @@ package com.example.chatapp
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.chatapp.databinding.ActivityChatBinding
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 import java.util.*
@@ -26,8 +24,9 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
-        val sendMsgButton: Button = findViewById(R.id.sendMsgBtn)
+
+        val binding = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         partition = "partition"
         user = chatApp.currentUser()
@@ -37,13 +36,14 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
         chatAdapter = ChatAdapter(mutableListOf(), this)
         chatAdapter.messages = realm.where(Message::class.java).findAll()
 
-        val recyclerView = findViewById<RecyclerView>(R.id.chat)
-        recyclerView.adapter = chatAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.apply {
+            chat.apply {
+                adapter = chatAdapter
+                layoutManager = LinearLayoutManager(this@ChatActivity)
+            }
+        }
 
-        //find by id the button and input
-        chatInput = findViewById(R.id.chatInput)
-        sendMsgButton.setOnClickListener(this)
+        binding.sendMsgBtn.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
