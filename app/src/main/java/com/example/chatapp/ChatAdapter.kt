@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class ChatAdapter(
@@ -16,19 +17,21 @@ class ChatAdapter(
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageText: TextView = itemView.findViewById(R.id.messageText)
         val messageTime: TextView = itemView.findViewById(R.id.messageTime)
-        private val sendMsgBtn: Button = itemView.findViewById(R.id.sendMsgBtn)
+        val sendMsgBtn: Button = itemView.findViewById(R.id.sendMsgBtn)
 
-        init {
-            apply {
-                sendMsgBtn.setOnClickListener {
-                    myInterface.chatClickListener(absoluteAdapterPosition, itemView)
-                }
-            }
-        }
+//        init {
+//            apply {
+//                sendMsgBtn.setOnClickListener {
+//                    myInterface.chatClickListener(absoluteAdapterPosition, itemView)
+//                }
+//            }
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.message_item, parent, false)
         return ChatViewHolder(view)
     }
 
