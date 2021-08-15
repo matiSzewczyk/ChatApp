@@ -20,7 +20,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 if (it.isSuccess) {
                     val username = binding.loginUsername.text.toString()
                     val intent = Intent(this.requireContext(), ChatActivity::class.java)
-                    intent.putExtra("username" ,username)//send the username from input
+                    intent.putExtra("username", username)//send the username from input
                     startActivity(intent)
                 } else {
                     Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()

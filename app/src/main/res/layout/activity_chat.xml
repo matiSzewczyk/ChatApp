@@ -9,26 +9,32 @@
     <EditText
         android:id="@+id/chatInput"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/input_background"
+        android:gravity="center"
         android:ems="10"
-        tools:hint="msg"
         android:inputType="textCapSentences"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:hint="msg" />
 
-    <Button
+    <ImageButton
         android:id="@+id/sendMsgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/send_image"
         tools:text="send"
-        android:focusable="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat"
-        android:layout_width="409dp"
-        android:layout_height="681dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/chatInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
