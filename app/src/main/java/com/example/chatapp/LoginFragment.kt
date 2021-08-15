@@ -15,7 +15,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         val binding = FragmentLoginBinding.bind(view)
 
-        binding.confirmLoginBtn.setOnClickListener {
+        binding.confirmConnectButton.setOnClickListener {
             chatApp.loginAsync(Credentials.anonymous()) {
                 if (it.isSuccess) {
                     val username = binding.loginUsername.text.toString()

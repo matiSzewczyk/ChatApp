@@ -50,7 +50,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 scrollToPosition(chatAdapter.itemCount - 1)
             }
         }
-        binding.sendMsgBtn.setOnClickListener(this)
+        binding.sendMessageButton.setOnClickListener(this)
         // Run this is i need to delete the table contents
 //        realm.executeTransaction {
 //
@@ -61,20 +61,22 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.sendMsgBtn -> {
+            R.id.send_message_button -> {
                 val currentDateTime = LocalDateTime.now()
                 val username = intent.getStringExtra("username").toString()
                 val timestamp = currentDateTime.toString()
                 val time = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
                 val message = binding.chatInput.text.toString()
 
-                realm.executeTransactionAsync { bgRealm ->
-                    val xd = Message()
-                    xd.username = username
-                    xd.message = message
-                    xd.time = time
-                    xd.timestamp = timestamp
-                    bgRealm.copyToRealmOrUpdate(xd)
+                if (message.isNotEmpty()) {
+                    realm.executeTransactionAsync { bgRealm ->
+                        val xd = Message()
+                        xd.username = username
+                        xd.message = message
+                        xd.time = time
+                        xd.timestamp = timestamp
+                        bgRealm.copyToRealmOrUpdate(xd)
+                    }
                 }
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()

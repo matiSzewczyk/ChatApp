@@ -13,15 +13,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val binding = FragmentHomeBinding.bind(view)
 
-        binding.loginBtn.setOnClickListener {
+        binding.connectBtn.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragment2ToLoginFragment()
             findNavController().navigate(action)
         }
 
-        binding.registerBtn.isEnabled = false
-        binding.registerBtn.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragment2ToRegisterFragment()
-            findNavController().navigate(action)
-        }
     }
 }

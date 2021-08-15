@@ -7,38 +7,46 @@
     android:background="@color/theme_darker"
     tools:context=".ChatActivity">
 
-    <EditText
-        android:id="@+id/chatInput"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/input_background"
-        android:gravity="center"
-        android:ems="10"
-        android:inputType="textCapSentences"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:hint="msg" />
-
-    <ImageButton
-        android:id="@+id/sendMsgBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/round_button"
-        android:src="@drawable/send_image"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <RelativeLayout
+        android:id="@+id/rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:text="send" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input_background"
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:hint="@string/chat_input_hint"
+            android:inputType="textCapSentences"
+            android:layout_toStartOf="@id/send_message_button" />
+
+        <ImageButton
+            android:id="@+id/send_message_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/round_button"
+            android:src="@drawable/send_image"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/chatInput"
+        app:layout_constraintBottom_toTopOf="@id/rel_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
