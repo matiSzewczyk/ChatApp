@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5f5f5f"
+    android:background="@color/theme_gray_darker"
     tools:context=".ChatActivity">
 
     <EditText
@@ -24,12 +24,13 @@
         android:id="@+id/sendMsgBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/send_image"
-        tools:text="send"
         android:layout_margin="5dp"
         android:background="@drawable/round_button"
+        android:src="@drawable/send_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:text="send" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat"

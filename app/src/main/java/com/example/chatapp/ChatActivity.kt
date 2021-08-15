@@ -19,6 +19,7 @@ import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
 
+    private lateinit var binding: ActivityChatBinding
     private lateinit var chatInput: EditText
     private var user: io.realm.mongodb.User? = null
     private lateinit var partition: String
@@ -29,7 +30,7 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityChatBinding.inflate(layoutInflater)
+        binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         partition = "partition"
@@ -46,8 +47,12 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
                 layoutManager = LinearLayoutManager(this@ChatActivity)
             }
         }
-
         binding.sendMsgBtn.setOnClickListener(this)
+        // Run this is i need to delete the table contents
+//        realm.executeTransaction {
+//
+//            realm.delete(Message::class.java)
+//        }
 
     }
 
@@ -68,6 +73,8 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
                     bgRealm.copyToRealmOrUpdate(xd)
                     // Call the function and pass message
                 }
+                binding.chatInput.text.clear()
+                binding.chatInput.clearFocus()
                 chatAdapter.messages = realm.where(Message::class.java).findAll()
                 chatAdapter.notifyDataSetChanged()
 //                chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
