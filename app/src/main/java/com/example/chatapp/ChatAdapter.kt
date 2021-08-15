@@ -15,6 +15,7 @@ class ChatAdapter(
 ) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val messageUsername: TextView = itemView.findViewById(R.id.messageUsername)
         val messageText: TextView = itemView.findViewById(R.id.messageText)
         val messageTime: TextView = itemView.findViewById(R.id.messageTime)
 
@@ -36,6 +37,7 @@ class ChatAdapter(
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         holder.apply {
+            messageUsername.text = messages[position].username
             messageText.text = messages[position].message
             messageTime.text = messages[position].time
         }

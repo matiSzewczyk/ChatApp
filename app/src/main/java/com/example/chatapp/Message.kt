@@ -12,6 +12,8 @@ open class Message : RealmObject() {
     @PrimaryKey @RealmField("_id")
     var id: String = UUID.randomUUID().toString()
 
+    var username: String = ""
+
     var message: String = ""
 
     var time: String = ""

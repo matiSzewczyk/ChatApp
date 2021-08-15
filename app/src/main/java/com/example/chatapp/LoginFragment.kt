@@ -18,7 +18,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.confirmLoginBtn.setOnClickListener {
             chatApp.loginAsync(Credentials.anonymous()) {
                 if (it.isSuccess) {
-                    startActivity(Intent(this.requireContext(), ChatActivity::class.java))
+                    val username = binding.loginUsername.text.toString()
+                    val intent = Intent(this.requireContext(), ChatActivity::class.java)
+                    intent.putExtra("username" ,username)//send the username from input
+                    startActivity(intent)
                 } else {
                     Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
                 }

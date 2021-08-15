@@ -9,8 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.databinding.ActivityChatBinding
-import io.realm.Realm
+import io.realm.*
 import io.realm.mongodb.sync.SyncConfiguration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
@@ -44,24 +48,28 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
         }
 
         binding.sendMsgBtn.setOnClickListener(this)
+
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.sendMsgBtn -> {
                 println("hello")
-                val time = Calendar.getInstance().time.toString()
+                val currentDateTime = LocalDateTime.now()
+                val username = intent.getStringExtra("username").toString()
+                val time = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
                 val message = findViewById<EditText>(R.id.chatInput).text.toString()
 
                 realm.executeTransactionAsync { bgRealm ->
                     val xd = Message()
+                    xd.username = username
                     xd.message = message
                     xd.time = time
                     bgRealm.copyToRealmOrUpdate(xd)
+                    // Call the function and pass message
                 }
-                // Call the function and pass message
-                val test = findViewById<TextView>(R.id.messageText)
-//                chatAdapter.messages.add(xd)
+                chatAdapter.messages = realm.where(Message::class.java).findAll()
+                chatAdapter.notifyDataSetChanged()
 //                chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
 //                viewModel.sendMessage(message, time, test)
             }
