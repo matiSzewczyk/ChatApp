@@ -1,10 +1,13 @@
 package com.example.chatapp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.databinding.ActivityChatBinding
 import io.realm.*
@@ -37,14 +40,12 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         realm = Realm.getInstance(config)
 
         chatAdapter = ChatAdapter(realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING))
-//        chatAdapter.messages = realm.where(Message::class.java)
-//            .findAll()
-//            .sort("timestamp", Sort.ASCENDING)
 
         binding.apply {
             chat.apply {
                 adapter = chatAdapter
                 layoutManager = LinearLayoutManager(this@ChatActivity)
+                scrollToPosition(chatAdapter.itemCount - 1)
             }
         }
         binding.sendMsgBtn.setOnClickListener(this)
@@ -64,7 +65,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 val username = intent.getStringExtra("username").toString()
                 val timestamp = currentDateTime.toString()
                 val time = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
-                val message = findViewById<EditText>(R.id.chatInput).text.toString()
+                val message = binding.chatInput.text.toString()
 
                 realm.executeTransactionAsync { bgRealm ->
                     val xd = Message()
@@ -74,9 +75,17 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                     xd.timestamp = timestamp
                     bgRealm.copyToRealmOrUpdate(xd)
                 }
+                binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
+                hideSoftKeyboard(binding.chatInput)
             }
         }
+    }
+
+    private fun hideSoftKeyboard(view: View) {
+        val imm = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        view.clearFocus()
     }
 }
