@@ -1,17 +1,14 @@
 package com.example.chatapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.RealmResults
 
 class ChatAdapter(
-    var messages: MutableList<Message>,
-    private val myInterface: ChatInterface
+    var messages: RealmResults<Message>
 ) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,13 +16,6 @@ class ChatAdapter(
         val messageText: TextView = itemView.findViewById(R.id.messageText)
         val messageTime: TextView = itemView.findViewById(R.id.messageTime)
 
-//        init {
-//            apply {
-//                sendMsgBtn.setOnClickListener {
-//                    myInterface.chatClickListener(absoluteAdapterPosition, itemView)
-//                }
-//            }
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
@@ -37,9 +27,9 @@ class ChatAdapter(
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         holder.apply {
-            messageUsername.text = messages[position].username
-            messageText.text = messages[position].message
-            messageTime.text = messages[position].time
+            messageUsername.text = messages[position]?.username
+            messageText.text = messages[position]?.message
+            messageTime.text = messages[position]?.time
         }
     }
 

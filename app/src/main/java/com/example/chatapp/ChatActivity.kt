@@ -3,24 +3,20 @@ package com.example.chatapp
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.databinding.ActivityChatBinding
 import io.realm.*
 import io.realm.mongodb.sync.SyncConfiguration
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 
-class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
+class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityChatBinding
-    private lateinit var chatInput: EditText
     private var user: io.realm.mongodb.User? = null
     private lateinit var partition: String
     private lateinit var realm: Realm
@@ -35,11 +31,15 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
 
         partition = "partition"
         user = chatApp.currentUser()
-        val config = SyncConfiguration.Builder(user, partition).build()
+        val config = SyncConfiguration.Builder(user, partition)
+            .allowWritesOnUiThread(true)
+            .build()
         realm = Realm.getInstance(config)
 
-        chatAdapter = ChatAdapter(mutableListOf(), this)
-        chatAdapter.messages = realm.where(Message::class.java).findAll()
+        chatAdapter = ChatAdapter(realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING))
+//        chatAdapter.messages = realm.where(Message::class.java)
+//            .findAll()
+//            .sort("timestamp", Sort.ASCENDING)
 
         binding.apply {
             chat.apply {
@@ -62,6 +62,7 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
                 println("hello")
                 val currentDateTime = LocalDateTime.now()
                 val username = intent.getStringExtra("username").toString()
+                val timestamp = currentDateTime.toString()
                 val time = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
                 val message = findViewById<EditText>(R.id.chatInput).text.toString()
 
@@ -70,29 +71,12 @@ class ChatActivity : AppCompatActivity(), ChatInterface, View.OnClickListener {
                     xd.username = username
                     xd.message = message
                     xd.time = time
+                    xd.timestamp = timestamp
                     bgRealm.copyToRealmOrUpdate(xd)
-                    // Call the function and pass message
                 }
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
-                chatAdapter.messages = realm.where(Message::class.java).findAll()
-                chatAdapter.notifyDataSetChanged()
-//                chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
-//                viewModel.sendMessage(message, time, test)
             }
         }
-    }
-
-    override fun chatClickListener(position: Int, view: View) {
-        val msgTV = view.findViewById<TextView>(R.id.messageText)
-        val timeTV = view.findViewById<TextView>(R.id.messageTime)
-
-        println("i think it works")
-        Toast.makeText(this, "click works", Toast.LENGTH_SHORT).show()
-
-        msgTV.text = chatInput.text.toString()
-        val time = Calendar.getInstance().time.toString()
-        timeTV.text = time
-//        viewModel.sendMessage(msgTV.toString(), time)
     }
 }

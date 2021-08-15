@@ -18,4 +18,6 @@ open class Message : RealmObject() {
 
     var time: String = ""
 
+    var timestamp: String = ""
+
 }
