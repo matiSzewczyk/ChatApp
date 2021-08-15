@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.databinding.ActivityChatBinding
 import io.realm.*
@@ -39,7 +37,11 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
             .build()
         realm = Realm.getInstance(config)
 
-        chatAdapter = ChatAdapter(realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING))
+        chatAdapter = ChatAdapter(
+            realm.where(Message::class.java)
+                .findAll()
+                .sort("timestamp", Sort.ASCENDING)
+        )
 
         binding.apply {
             chat.apply {
@@ -60,7 +62,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.sendMsgBtn -> {
-                println("hello")
                 val currentDateTime = LocalDateTime.now()
                 val username = intent.getStringExtra("username").toString()
                 val timestamp = currentDateTime.toString()

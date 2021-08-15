@@ -4,7 +4,7 @@
         android:height="60dp"
         android:width="60dp" />
     <solid
-        android:color="@color/message_bg1" />
+        android:color="@color/theme_lightest" />
     <corners
         android:radius="30dp"/>
 </shape>
