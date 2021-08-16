@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:layout_marginStart="10dp"
         tools:text="Username"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,13 +22,13 @@
         android:id="@+id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textSize="14sp"
-        tools:text="Here is the chat message"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="monospace"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/messageUsername"
+        tools:text="Here is the chat message" />
 
     <TextView
         android:id="@+id/messageTime"
