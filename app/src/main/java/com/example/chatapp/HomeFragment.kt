@@ -17,6 +17,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             val action = HomeFragmentDirections.actionHomeFragment2ToLoginFragment()
             findNavController().navigate(action)
         }
-
     }
 }

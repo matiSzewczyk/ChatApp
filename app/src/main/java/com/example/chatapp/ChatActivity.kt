@@ -23,6 +23,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var realm: Realm
     private val viewModel: ChatViewmodel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
+    //listener
+    private lateinit var messageListener: RealmChangeListener<RealmResults<Message>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,18 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 //
 //            realm.delete(Message::class.java)
 //        }
+//        val messageListener = OrderedRealmCollectionChangeListener {collection: RealmResults<Message>?, changeSet: OrderedCollectionChangeSet ->
+//            val insertions = changeSet.insertionRanges
+//            for (range in insertions) {
+//                println("hi")
+//            }
+//        }
+//        chatAdapter.messages.addChangeListener(messageListener)
+        messageListener = RealmChangeListener {
+            chatAdapter.messages = realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING)
+        }
+//        realm.addChangeListener(messageListener)
+        chatAdapter.messages.addChangeListener(messageListener)
 
     }
 
