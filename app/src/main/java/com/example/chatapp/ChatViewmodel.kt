@@ -1,12 +1,25 @@
 package com.example.chatapp
 
-import android.view.View
 import androidx.lifecycle.ViewModel
-import java.util.*
+import io.realm.Realm
 
 class ChatViewmodel : ViewModel() {
-    fun sendMessage(text: String, time: String, view: View) {
-        //send to the datase
-        //add to recyclerview
+    fun sendMessage(realm: Realm, message: Message) {
+        realm.executeTransactionAsync { bgRealm ->
+            bgRealm.copyToRealmOrUpdate(message)
+        }
+    }
+    fun createObject(username: String, text: String, time: String, timestamp: String) : Message {
+        val message = Message()
+        message.username = username
+        message.message = text
+        message.time = time
+        message.timestamp = timestamp
+        return message
+    }
+    fun clearDatabase(realm: Realm) {
+        realm.executeTransactionAsync { bgRealm ->
+            bgRealm.delete(Message::class.java)
+        }
     }
 }

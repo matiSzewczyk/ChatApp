@@ -35,7 +35,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         partition = "partition"
         user = chatApp.currentUser()
         val config = SyncConfiguration.Builder(user, partition)
-            .allowWritesOnUiThread(true)
             .build()
         realm = Realm.getInstance(config)
 
@@ -56,7 +55,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
         messageListener = RealmChangeListener {
             chatAdapter.messages = realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING)
-            chatAdapter.notifyDataSetChanged()
+            chatAdapter.notifyItemInserted(chatAdapter.itemCount - 1)
             binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
         chatAdapter.messages.addChangeListener(messageListener)
@@ -67,26 +66,20 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.send_message_button -> {
                 val currentDateTime = LocalDateTime.now()
-                val username = intent.getStringExtra("username").toString()
-                val timestamp = currentDateTime.toString()
-                val time = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
                 val message = binding.chatInput.text.toString()
 
                 if (message.isNotEmpty()) {
-                    realm.executeTransactionAsync { bgRealm ->
-                        val xd = Message()
-                        xd.username = username
-                        xd.message = message
-                        xd.time = time
-                        xd.timestamp = timestamp
-                        bgRealm.copyToRealmOrUpdate(xd)
-                    }
+                    val obj = viewModel.createObject(
+                        intent.getStringExtra("username").toString(),
+                        binding.chatInput.text.toString(),
+                        currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
+                        currentDateTime.toString()
+                    )
+                    viewModel.sendMessage(realm, obj)
                 }
                 // DEBUG ONLY // type this to clear db
                 if (message == "cleardb") {
-                    realm.executeTransactionAsync { bgRealm ->
-                        bgRealm.delete(Message::class.java)
-                    }
+                    viewModel.clearDatabase(realm)
                 }
                 // DEBUG ONLY
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)

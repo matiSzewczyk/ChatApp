@@ -16,15 +16,19 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val binding = FragmentLoginBinding.bind(view)
 
         binding.confirmConnectButton.setOnClickListener {
-            chatApp.loginAsync(Credentials.anonymous()) {
-                if (it.isSuccess) {
-                    val username = binding.loginUsername.text.toString()
-                    val intent = Intent(this.requireContext(), ChatActivity::class.java)
-                    intent.putExtra("username", username)//send the username from input
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
+            if (binding.loginUsername.text.isNotEmpty()) {
+                chatApp.loginAsync(Credentials.anonymous()) {
+                    if (it.isSuccess) {
+                        val username = binding.loginUsername.text.toString()
+                        val intent = Intent(this.requireContext(), ChatActivity::class.java)
+                        intent.putExtra("username", username)//send the username from input
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
+                    }
                 }
+            } else {
+                Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
             }
         }
     }
