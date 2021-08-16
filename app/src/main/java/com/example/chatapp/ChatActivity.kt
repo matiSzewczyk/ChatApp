@@ -67,6 +67,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 //        chatAdapter.messages.addChangeListener(messageListener)
         messageListener = RealmChangeListener {
             chatAdapter.messages = realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING)
+            chatAdapter.notifyDataSetChanged()
+            binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
 //        realm.addChangeListener(messageListener)
         chatAdapter.messages.addChangeListener(messageListener)
