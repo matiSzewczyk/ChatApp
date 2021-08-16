@@ -53,24 +53,12 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         binding.sendMessageButton.setOnClickListener(this)
-        // Run this is i need to delete the table contents
-//        realm.executeTransaction {
-//
-//            realm.delete(Message::class.java)
-//        }
-//        val messageListener = OrderedRealmCollectionChangeListener {collection: RealmResults<Message>?, changeSet: OrderedCollectionChangeSet ->
-//            val insertions = changeSet.insertionRanges
-//            for (range in insertions) {
-//                println("hi")
-//            }
-//        }
-//        chatAdapter.messages.addChangeListener(messageListener)
+
         messageListener = RealmChangeListener {
             chatAdapter.messages = realm.where(Message::class.java).findAll().sort("timestamp", Sort.ASCENDING)
             chatAdapter.notifyDataSetChanged()
             binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
-//        realm.addChangeListener(messageListener)
         chatAdapter.messages.addChangeListener(messageListener)
 
     }
@@ -94,6 +82,13 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                         bgRealm.copyToRealmOrUpdate(xd)
                     }
                 }
+                // DEBUG ONLY // type this to clear db
+                if (message == "cleardb") {
+                    realm.executeTransactionAsync { bgRealm ->
+                        bgRealm.delete(Message::class.java)
+                    }
+                }
+                // DEBUG ONLY
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
