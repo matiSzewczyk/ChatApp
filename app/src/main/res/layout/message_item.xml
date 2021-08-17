@@ -26,6 +26,7 @@
         android:layout_marginTop="5dp"
         android:fontFamily="monospace"
         android:textSize="14sp"
+        android:textColor="@color/theme_font_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageUsername"
         tools:text="Here is the chat message" />
@@ -37,6 +38,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:textSize="12sp"
+        android:textColor="@color/theme_font_time"
         tools:text="time"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
