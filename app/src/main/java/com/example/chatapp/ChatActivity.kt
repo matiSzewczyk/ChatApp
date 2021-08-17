@@ -54,6 +54,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         binding.sendMessageButton.setOnClickListener(this)
 
         messageListener = RealmChangeListener {
+            chatAdapter.notifyDataSetChanged()
             binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
         chatAdapter.messages.addChangeListener(messageListener)
