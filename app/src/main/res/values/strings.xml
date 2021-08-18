@@ -12,4 +12,5 @@
     <string name="ok_button_text">OK</string>
     <string name="chat_input_hint">Message…</string>
     <string name="select_chat_room">Select chat room:</string>
+    <string name="make_new_room">Or make your own!</string>
 </resources>

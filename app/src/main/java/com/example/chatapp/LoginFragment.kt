@@ -53,6 +53,15 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                 Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.makeNewRoomButton.setOnClickListener {
+            Toast.makeText(requireContext(), "hi.", Toast.LENGTH_SHORT).show()
+            if (binding.loginUsername.text.isNotEmpty()) {
+// TODO: 8/18/21 add a createRoomFragment 
+            } else {
+                Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
