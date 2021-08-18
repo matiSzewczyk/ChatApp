@@ -10,20 +10,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
+import io.realm.Realm
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.RealmResultTask
+import io.realm.mongodb.sync.SyncConfiguration
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
 
     private val chatRoomViewmodel: ChatRoomViewmodel by viewModels()
     private lateinit var roomList: RealmResults<ChatRoom>
-    private lateinit var roomListener: RealmChangeListener<RealmResults<ChatRoom>>
+    private var index = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println(_partition)
 
+        _partition = "eksdee"
         val binding = FragmentLoginBinding.bind(view)
         roomList = chatRoomViewmodel.chatRoomList
 
@@ -41,6 +45,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                 if (!binding.loginUsername.text.contains(" ")) {
                     chatApp.loginAsync(Credentials.anonymous()) {
                         if (it.isSuccess) {
+                            _partition = roomList[index]!!.name
                             val username = binding.loginUsername.text.toString()
                             val intent = Intent(this.requireContext(), ChatActivity::class.java)
                             intent.putExtra("username", username)//send the username from input
@@ -68,15 +73,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-        if (pos == 0) { // public
-            _partition = roomList[0]!!.name
-        }
-        if (pos == 1) { // private
-            _partition = roomList[1]!!.name
-        }
-        if (pos == 2) { // test
-            _partition = roomList[2]!!.name
-        }
+        index = parent!!.selectedItemPosition
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

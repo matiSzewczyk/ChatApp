@@ -44,8 +44,8 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
                     newRoom.private = private
                     newRoom.password = password
                     viewModel.makeNewRoom(newRoom)
-                    _partition = newRoom.name
                     goToChat()
+                    _partition = newRoom.name
                 } else {
                     Toast.makeText(context, "Room name cannot contain whitespace.", Toast.LENGTH_SHORT).show()
                 }
