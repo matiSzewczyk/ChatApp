@@ -41,8 +41,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/select_room"
-        android:gravity="center"
         android:textColor="@color/black"
+        android:backgroundTint="@color/theme_lighter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_room" />
