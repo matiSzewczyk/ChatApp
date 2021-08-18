@@ -34,8 +34,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
         partition = _partition
         user = chatApp.currentUser()
-        val config = SyncConfiguration.Builder(user, partition)
-            .build()
+        val config = SyncConfiguration.Builder(user, partition).build()
         realm = Realm.getInstance(config)
 
         chatAdapter = ChatAdapter(
