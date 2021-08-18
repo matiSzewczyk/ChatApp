@@ -9,7 +9,11 @@
         android:id="@+id/loginFragment"
         android:name="com.example.chatapp.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_newRoomFragment"
+            app:destination="@id/newRoomFragment" />
+    </fragment>
     <fragment
         android:id="@+id/HomeFragment"
         android:name="com.example.chatapp.HomeFragment"
@@ -17,5 +21,14 @@
         <action
             android:id="@+id/action_homeFragment2_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRoomFragment"
+        android:name="com.example.chatapp.NewRoomFragment"
+        android:label="fragment_new_room"
+        tools:layout="@layout/fragment_new_room" >
+        <argument
+            android:name="username"
+            app:argType="string" />
     </fragment>
 </navigation>

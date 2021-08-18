@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
 import io.realm.mongodb.Credentials
 
@@ -57,7 +58,8 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         binding.makeNewRoomButton.setOnClickListener {
             Toast.makeText(requireContext(), "hi.", Toast.LENGTH_SHORT).show()
             if (binding.loginUsername.text.isNotEmpty()) {
-// TODO: 8/18/21 add a createRoomFragment 
+                val action = LoginFragmentDirections.actionLoginFragmentToNewRoomFragment(binding.loginUsername.text.toString())
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
             }
