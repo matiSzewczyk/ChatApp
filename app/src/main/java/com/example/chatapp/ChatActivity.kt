@@ -32,7 +32,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        partition = "partition"
+        partition = _partition
         user = chatApp.currentUser()
         val config = SyncConfiguration.Builder(user, partition)
             .build()
