@@ -5,23 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
-import io.realm.Realm
-import io.realm.kotlin.where
+import io.realm.RealmChangeListener
+import io.realm.RealmResults
 import io.realm.mongodb.Credentials
-import io.realm.mongodb.sync.SyncConfiguration
+import io.realm.mongodb.RealmResultTask
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
 
     private val chatRoomViewmodel: ChatRoomViewmodel by viewModels()
-    private lateinit var roomList: List<ChatRoom>
-
-    private lateinit var adapter: ArrayAdapter<ChatRoom>
+    private lateinit var roomList: RealmResults<ChatRoom>
+    private lateinit var roomListener: RealmChangeListener<RealmResults<ChatRoom>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +33,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = this
+        println("rooms: $roomList")
 
         // Connect button logic
         binding.confirmConnectButton.setOnClickListener {
@@ -70,13 +69,13 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         if (pos == 0) { // public
-            _partition = roomList[0].name
+            _partition = roomList[0]!!.name
         }
         if (pos == 1) { // private
-            _partition = roomList[1].name
+            _partition = roomList[1]!!.name
         }
         if (pos == 2) { // test
-            _partition = roomList[2].name
+            _partition = roomList[2]!!.name
         }
     }
 
