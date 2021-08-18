@@ -6,7 +6,7 @@ import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
 
 lateinit var chatApp: App
-lateinit var _partition: String
+var _partition: String = "temp"
 
 class ChatApp : Application(){
     override fun onCreate() {

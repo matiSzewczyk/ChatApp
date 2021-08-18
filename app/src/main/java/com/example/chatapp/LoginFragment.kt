@@ -8,28 +8,31 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
+import io.realm.Realm
+import io.realm.kotlin.where
 import io.realm.mongodb.Credentials
+import io.realm.mongodb.sync.SyncConfiguration
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
+
+    private val chatRoomViewmodel: ChatRoomViewmodel by viewModels()
+    private lateinit var roomList: List<ChatRoom>
+
+    private lateinit var adapter: ArrayAdapter<ChatRoom>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentLoginBinding.bind(view)
+        roomList = chatRoomViewmodel.chatRoomList
 
         // Init the spinner
         val spinner = binding.spinner
-
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.room_array,
-            R.layout.spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner_item)
-            spinner.adapter = adapter
-        }
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomList)
+        spinner.adapter = adapter
 
         spinner.onItemSelectedListener = this
 
@@ -56,7 +59,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         }
 
         binding.makeNewRoomButton.setOnClickListener {
-            Toast.makeText(requireContext(), "hi.", Toast.LENGTH_SHORT).show()
             if (binding.loginUsername.text.isNotEmpty()) {
                 val action = LoginFragmentDirections.actionLoginFragmentToNewRoomFragment(binding.loginUsername.text.toString())
                 findNavController().navigate(action)
@@ -68,13 +70,13 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         if (pos == 0) { // public
-            _partition = "room0"
+            _partition = roomList[0].name
         }
         if (pos == 1) { // private
-            _partition = "room1"
+            _partition = roomList[1].name
         }
         if (pos == 2) { // test
-            _partition = "room2"
+            _partition = roomList[2].name
         }
     }
 
