@@ -11,9 +11,8 @@ class LoginViewmodel : ViewModel() {
     private val user = chatApp.currentUser()
     private val config = SyncConfiguration.Builder(user, partition).build()
     private val realm = Realm.getInstance(config)
-    var chatRoomList = getChatList()
 
-    private fun getChatList(): RealmResults<ChatRoom> {
+    fun getChatRooms(): RealmResults<ChatRoom> {
         return realm.where(ChatRoom::class.java).findAll()
     }
 

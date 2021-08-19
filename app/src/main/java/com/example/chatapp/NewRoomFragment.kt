@@ -17,6 +17,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentNewRoomBinding.bind(view)
+        _partition = "temp"
 
         binding.newRoomPassword.visibility = View.INVISIBLE
 
@@ -33,7 +34,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
         binding.createRoomButton.setOnClickListener {
             val roomName = binding.newRoomName.text.toString()
-            val private: Boolean = binding.newTypePrivate.isChecked
+            val private = binding.newTypePrivate.isChecked
             var password = ""
             val newRoom = ChatRoom()
             if (roomName.isNotEmpty()) {

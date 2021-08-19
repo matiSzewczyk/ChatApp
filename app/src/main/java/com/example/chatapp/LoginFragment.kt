@@ -27,11 +27,12 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         _partition = "temp"
         binding = FragmentLoginBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
-        roomList = loginViewmodel.chatRoomList
+        roomList = loginViewmodel.getChatRooms()
 //        loginViewmodel.delete()
         println("current partition: $_partition")
         for (i in 0 until roomList.size) {
-            println("${roomList[i]!!.name}: ${roomList[i]!!.private}")
+            println("${roomList[i]!!.name} private: ${roomList[i]!!.private}")
+            println("${roomList[i]!!.name} password: ${roomList[i]!!.password}")
         }
 
         // Init the spinner
@@ -74,7 +75,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     }
 
     private fun isPrivate(): Boolean {
-        println("${roomList[index]!!.private}")
         return roomList[index]!!.private
     }
 

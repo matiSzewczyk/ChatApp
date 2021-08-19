@@ -17,14 +17,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             val action = HomeFragmentDirections.actionHomeFragment2ToLoginFragment()
             findNavController().navigate(action)
         }
-
-//        binding.roomList.setOnCheckedChangeListener { _, i ->
-//            if (i == R.id.room_1) {
-//                _partition = "room1"
-//            }
-//            if (i == R.id.room_2) {
-//                _partition = "room2"
-//            }
-//        }
     }
 }
