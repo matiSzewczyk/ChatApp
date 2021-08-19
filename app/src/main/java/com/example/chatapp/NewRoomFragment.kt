@@ -33,7 +33,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
         binding.createRoomButton.setOnClickListener {
             val roomName = binding.newRoomName.text.toString()
-            val private = binding.newTypePrivate.isChecked
+            val private: Boolean = binding.newTypePrivate.isChecked
             var password = ""
             val newRoom = ChatRoom()
             if (roomName.isNotEmpty()) {
@@ -62,6 +62,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
     }
     private fun goToChat() {
         val username = args.username
+        println("current partition: $_partition")
         val intent = Intent(this.requireContext(), ChatActivity::class.java)
         intent.putExtra("username", username)//send the username from input
         startActivity(intent)

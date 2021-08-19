@@ -17,7 +17,7 @@ class NewRoomViewmodel : ViewModel() {
     }
 
    fun exists(roomName: String): Boolean {
-       val exists: ChatRoom = realm.where(ChatRoom::class.java).equalTo("name", roomName).findFirst()
+       realm.where(ChatRoom::class.java).equalTo("name", roomName).findFirst()
            ?: return false
        return true
     }

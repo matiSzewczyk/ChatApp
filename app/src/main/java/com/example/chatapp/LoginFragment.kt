@@ -3,6 +3,7 @@ package com.example.chatapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -28,6 +29,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         binding.roomPasswordInput.visibility = View.INVISIBLE
         roomList = loginViewmodel.chatRoomList
 //        loginViewmodel.delete()
+        println("current partition: $_partition")
         for (i in 0 until roomList.size) {
             println("${roomList[i]!!.name}: ${roomList[i]!!.private}")
         }
@@ -73,7 +75,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     private fun isPrivate(): Boolean {
         println("${roomList[index]!!.private}")
-        return roomList[index]?.private!!
+        return roomList[index]!!.private
     }
 
     private fun showPasswordInput() {
@@ -86,11 +88,14 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     private fun correctPassword() : Boolean {
         var correct = false
         binding.roomPasswordInput.setOnEditorActionListener { textView, i, keyEvent ->
-            val passwd = binding.roomPasswordInput.text.toString()
-            if (passwd == roomList[index]!!.password) {
-                correct = true
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                val passwd = binding.roomPasswordInput.text.toString()
+                if (passwd == roomList[index]!!.password) {
+                    correct = true
+                }
+                return@setOnEditorActionListener true
             }
-            true
+            false
         }
         return correct
     }
