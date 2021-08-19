@@ -10,26 +10,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
-import io.realm.Realm
-import io.realm.RealmChangeListener
 import io.realm.RealmResults
 import io.realm.mongodb.Credentials
-import io.realm.mongodb.RealmResultTask
-import io.realm.mongodb.sync.SyncConfiguration
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
 
-    private val chatRoomViewmodel: ChatRoomViewmodel by viewModels()
+    private val loginViewmodel: LoginViewmodel by viewModels()
     private lateinit var roomList: RealmResults<ChatRoom>
+    private lateinit var binding: FragmentLoginBinding
     private var index = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println(_partition)
 
-        _partition = "eksdee"
-        val binding = FragmentLoginBinding.bind(view)
-        roomList = chatRoomViewmodel.chatRoomList
+        _partition = "temp"
+        binding = FragmentLoginBinding.bind(view)
+        binding.roomPasswordInput.visibility = View.INVISIBLE
+        roomList = loginViewmodel.chatRoomList
+//        loginViewmodel.delete()
+        for (i in 0 until roomList.size) {
+            println("${roomList[i]!!.name}: ${roomList[i]!!.private}")
+        }
 
         // Init the spinner
         val spinner = binding.spinner
@@ -37,23 +38,21 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = this
-        println("rooms: $roomList")
 
         // Connect button logic
         binding.confirmConnectButton.setOnClickListener {
             if (binding.loginUsername.text.isNotEmpty()) {
                 if (!binding.loginUsername.text.contains(" ")) {
-                    chatApp.loginAsync(Credentials.anonymous()) {
-                        if (it.isSuccess) {
-                            _partition = roomList[index]!!.name
-                            val username = binding.loginUsername.text.toString()
-                            val intent = Intent(this.requireContext(), ChatActivity::class.java)
-                            intent.putExtra("username", username)//send the username from input
-                            startActivity(intent)
+                    if (isPrivate()) {
+                        println("is private")
+                        showPasswordInput()
+                        if (!correctPassword()) {
+                            Toast.makeText(requireContext(), "Incorrect password.", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
+                            connect()
                         }
                     }
+                    connect()
                 } else {
                     Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
                 }
@@ -68,6 +67,44 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                 findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun isPrivate(): Boolean {
+        println("${roomList[index]!!.private}")
+        return roomList[index]?.private!!
+    }
+
+    private fun showPasswordInput() {
+        binding.roomPasswordInput.apply {
+            visibility = View.VISIBLE
+            requestFocus()
+        }
+    }
+
+    private fun correctPassword() : Boolean {
+        var correct = false
+        binding.roomPasswordInput.setOnEditorActionListener { textView, i, keyEvent ->
+            val passwd = binding.roomPasswordInput.text.toString()
+            if (passwd == roomList[index]!!.password) {
+                correct = true
+            }
+            true
+        }
+        return correct
+    }
+
+    private fun connect() {
+        chatApp.loginAsync(Credentials.anonymous()) {
+            if (it.isSuccess) {
+                _partition = roomList[index]!!.name // Change the chat room
+                val username = binding.loginUsername.text.toString()
+                val intent = Intent(this.requireContext(), ChatActivity::class.java)
+                intent.putExtra("username", username)//send the username from input
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
             }
         }
     }

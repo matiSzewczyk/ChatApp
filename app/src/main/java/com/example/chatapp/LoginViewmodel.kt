@@ -5,7 +5,7 @@ import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.mongodb.sync.SyncConfiguration
 
-class ChatRoomViewmodel() : ViewModel() {
+class LoginViewmodel() : ViewModel() {
 
     private val partition = _partition
     private val user = chatApp.currentUser()
@@ -17,9 +17,11 @@ class ChatRoomViewmodel() : ViewModel() {
         return realm.where(ChatRoom::class.java).findAll()
     }
 
-    fun makeNewRoom(room: ChatRoom) {
+    fun delete()
+    {
         realm.executeTransactionAsync { bgRealm ->
-            bgRealm.copyToRealmOrUpdate(room)
+            bgRealm.delete(ChatRoom::class.java)
         }
     }
+
 }

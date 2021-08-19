@@ -10,7 +10,7 @@ import com.example.chatapp.databinding.FragmentNewRoomBinding
 
 class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
-    private val viewModel: ChatRoomViewmodel by viewModels()
+    private val viewModel: NewRoomViewmodel by viewModels()
     private val args: NewRoomFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,11 +23,12 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
         binding.newRoomType.setOnCheckedChangeListener { _, i ->
             if (i == R.id.new_type_public) {
                 binding.newRoomPassword.visibility = View.INVISIBLE
+                println("is checked: ${binding.newTypePrivate.isChecked}")
             }
             if (i == R.id.new_type_private) {
                 binding.newRoomPassword.visibility = View.VISIBLE
+                println("is checked: ${binding.newTypePrivate.isChecked}")
             }
-
         }
 
         binding.createRoomButton.setOnClickListener {
@@ -40,12 +41,17 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
                     if (private) {
                         password = binding.newRoomPassword.text.toString()
                     }
+                    println("setting the private var to: $private")
                     newRoom.name = roomName
                     newRoom.private = private
                     newRoom.password = password
-                    viewModel.makeNewRoom(newRoom)
-                    goToChat()
-                    _partition = newRoom.name
+                    if (viewModel.exists(roomName)) {
+                        Toast.makeText(context, "Room already exists.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.makeNewRoom(newRoom)
+                        goToChat()
+                        _partition = newRoom.name
+                    }
                 } else {
                     Toast.makeText(context, "Room name cannot contain whitespace.", Toast.LENGTH_SHORT).show()
                 }
