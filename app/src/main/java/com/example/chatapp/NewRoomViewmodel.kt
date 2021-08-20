@@ -10,8 +10,16 @@ class NewRoomViewmodel : ViewModel() {
     private val config = SyncConfiguration.Builder(user, partition).build()
     private val realm = Realm.getInstance(config)
 
-    fun makeNewRoom(room: ChatRoom) {
+    fun createRoomObject(roomName: String, private: Boolean, password: String) {
+        val room = ChatRoom()
+        room.name = roomName
+        room.isPrivate = private
+        room.password = password
+        saveRoom(room)
+    }
+    private fun saveRoom(room: ChatRoom) {
         realm.executeTransactionAsync { bgRealm ->
+            _partition = room.name
             bgRealm.copyToRealmOrUpdate(room)
         }
     }

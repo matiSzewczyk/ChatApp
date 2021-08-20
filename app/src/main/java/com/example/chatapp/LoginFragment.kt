@@ -13,15 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
-import io.realm.RealmResults
 import io.realm.mongodb.Credentials
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
 
     private val loginViewmodel: LoginViewmodel by viewModels()
-    private lateinit var roomList: RealmResults<ChatRoom>
     private lateinit var binding: FragmentLoginBinding
-    private var index = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,14 +26,12 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         _partition = "temp"
         binding = FragmentLoginBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
-        roomList = loginViewmodel.getChatRooms()
 //        loginViewmodel.delete()
 
         // Init the spinner
         val spinner = binding.spinner
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomList)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, loginViewmodel.roomList)
         spinner.adapter = adapter
-
         spinner.onItemSelectedListener = this
 
         // Connect button logic
@@ -77,7 +72,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     }
 
     private fun isPrivate(): Boolean {
-        return roomList[index]!!.isPrivate
+        return loginViewmodel.roomList[loginViewmodel.index]!!.isPrivate
     }
 
     private fun showPasswordInput() {
@@ -91,7 +86,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     private fun connect() {
         chatApp.loginAsync(Credentials.anonymous()) {
             if (it.isSuccess) {
-                _partition = roomList[index]!!.name // Change the chat room
+                _partition = loginViewmodel.roomList[loginViewmodel.index]!!.name // Change the chat room
                 val username = binding.loginUsername.text.toString()
                 val intent = Intent(this.requireContext(), ChatActivity::class.java)
                 intent.putExtra("username", username)//send the username from input
@@ -103,7 +98,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     }
 
     private fun checkPassword(password: String) {
-        if (password == roomList[index]!!.password) {
+        if (password == loginViewmodel.roomList[loginViewmodel.index]!!.password) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
             hideSoftKeyboard(binding.roomPasswordInput)
             connect()
@@ -124,8 +119,8 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-        index = parent!!.selectedItemPosition
-        if (!roomList[index]!!.isPrivate) {
+        loginViewmodel.index = parent!!.selectedItemPosition
+        if (!loginViewmodel.roomList[loginViewmodel.index]!!.isPrivate) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
         }
     }

@@ -34,21 +34,16 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
             val roomName = binding.newRoomName.text.toString()
             val private = binding.newTypePrivate.isChecked
             var password = ""
-            val newRoom = ChatRoom()
             if (roomName.isNotEmpty()) {
                 if (!roomName.contains(" ")) {
                     if (private) {
                         password = binding.newRoomPassword.text.toString()
                     }
-                    newRoom.name = roomName
-                    newRoom.isPrivate = private
-                    newRoom.password = password
                     if (viewModel.exists(roomName)) {
                         Toast.makeText(context, "Room already exists.", Toast.LENGTH_SHORT).show()
                     } else {
-                        viewModel.makeNewRoom(newRoom)
+                        viewModel.createRoomObject(roomName, private, password)
                         goToChat()
-                        _partition = newRoom.name
                     }
                 } else {
                     Toast.makeText(context, "Room name cannot contain whitespace.", Toast.LENGTH_SHORT).show()
