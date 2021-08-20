@@ -125,6 +125,9 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         index = parent!!.selectedItemPosition
+        if (!roomList[index]!!.isPrivate) {
+            binding.roomPasswordInput.visibility = View.INVISIBLE
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
