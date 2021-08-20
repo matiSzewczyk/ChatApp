@@ -75,7 +75,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                     )
                     viewModel.sendMessage(realm, obj)
                 }
-                // DEBUG ONLY // type this to clear db
+                // DEBUG ONLY // isPrivate this to clear db
                 if (message == "cleardb") {
                     viewModel.clearDatabase(realm)
                 }

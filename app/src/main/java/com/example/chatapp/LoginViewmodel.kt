@@ -16,11 +16,9 @@ class LoginViewmodel : ViewModel() {
         return realm.where(ChatRoom::class.java).findAll()
     }
 
-    fun delete()
-    {
+    fun delete() {
         realm.executeTransactionAsync { bgRealm ->
             bgRealm.delete(ChatRoom::class.java)
         }
     }
-
 }

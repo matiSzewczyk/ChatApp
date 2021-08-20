@@ -1,9 +1,11 @@
 package com.example.chatapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -29,11 +31,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
         binding.roomPasswordInput.visibility = View.INVISIBLE
         roomList = loginViewmodel.getChatRooms()
 //        loginViewmodel.delete()
-        println("current partition: $_partition")
-        for (i in 0 until roomList.size) {
-            println("${roomList[i]!!.name} private: ${roomList[i]!!.private}")
-            println("${roomList[i]!!.name} password: ${roomList[i]!!.password}")
-        }
 
         // Init the spinner
         val spinner = binding.spinner
@@ -47,15 +44,10 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
             if (binding.loginUsername.text.isNotEmpty()) {
                 if (!binding.loginUsername.text.contains(" ")) {
                     if (isPrivate()) {
-                        println("is private")
                         showPasswordInput()
-                        if (!correctPassword()) {
-                            Toast.makeText(requireContext(), "Incorrect password.", Toast.LENGTH_SHORT).show()
-                        } else {
-                            connect()
-                        }
+                    } else {
+                        connect()
                     }
-                    connect()
                 } else {
                     Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
                 }
@@ -72,32 +64,28 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                 Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
 
-    private fun isPrivate(): Boolean {
-        return roomList[index]!!.private
-    }
-
-    private fun showPasswordInput() {
-        binding.roomPasswordInput.apply {
-            visibility = View.VISIBLE
-            requestFocus()
-        }
-    }
-
-    private fun correctPassword() : Boolean {
-        var correct = false
-        binding.roomPasswordInput.setOnEditorActionListener { textView, i, keyEvent ->
-            if (i == EditorInfo.IME_ACTION_DONE) {
+        binding.roomPasswordInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val passwd = binding.roomPasswordInput.text.toString()
-                if (passwd == roomList[index]!!.password) {
-                    correct = true
-                }
+                binding.roomPasswordInput.text.clear()
+                checkPassword(passwd)
                 return@setOnEditorActionListener true
             }
             false
         }
-        return correct
+    }
+
+    private fun isPrivate(): Boolean {
+        return roomList[index]!!.isPrivate
+    }
+
+    private fun showPasswordInput() {
+        binding.roomPasswordInput.apply {
+            showSoftKeyboard(this)
+            visibility = View.VISIBLE
+            requestFocus()
+        }
     }
 
     private fun connect() {
@@ -112,6 +100,27 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                 Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun checkPassword(password: String) {
+        if (password == roomList[index]!!.password) {
+            binding.roomPasswordInput.visibility = View.INVISIBLE
+            hideSoftKeyboard(binding.roomPasswordInput)
+            connect()
+        } else {
+            Toast.makeText(requireContext(), "Incorrect password.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showSoftKeyboard(view: View) {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun hideSoftKeyboard(view: View) {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        view.clearFocus()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {

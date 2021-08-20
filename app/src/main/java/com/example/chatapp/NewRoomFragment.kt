@@ -24,11 +24,9 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
         binding.newRoomType.setOnCheckedChangeListener { _, i ->
             if (i == R.id.new_type_public) {
                 binding.newRoomPassword.visibility = View.INVISIBLE
-                println("is checked: ${binding.newTypePrivate.isChecked}")
             }
             if (i == R.id.new_type_private) {
                 binding.newRoomPassword.visibility = View.VISIBLE
-                println("is checked: ${binding.newTypePrivate.isChecked}")
             }
         }
 
@@ -42,9 +40,8 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
                     if (private) {
                         password = binding.newRoomPassword.text.toString()
                     }
-                    println("setting the private var to: $private")
                     newRoom.name = roomName
-                    newRoom.private = private
+                    newRoom.isPrivate = private
                     newRoom.password = password
                     if (viewModel.exists(roomName)) {
                         Toast.makeText(context, "Room already exists.", Toast.LENGTH_SHORT).show()
@@ -63,7 +60,6 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
     }
     private fun goToChat() {
         val username = args.username
-        println("current partition: $_partition")
         val intent = Intent(this.requireContext(), ChatActivity::class.java)
         intent.putExtra("username", username)//send the username from input
         startActivity(intent)
