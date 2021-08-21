@@ -21,7 +21,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     private var user: io.realm.mongodb.User? = null
     private lateinit var partition: String
     private lateinit var realm: Realm
-    private val viewModel: ChatViewmodel by viewModels()
+    private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
     //listener
     private lateinit var messageListener: RealmChangeListener<RealmResults<Message>>
@@ -67,17 +67,17 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 val message = binding.chatInput.text.toString()
 
                 if (message.isNotEmpty()) {
-                    val obj = viewModel.createObject(
+                    val obj = chatViewModel.createObject(
                         intent.getStringExtra("username").toString(),
                         binding.chatInput.text.toString(),
                         currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                         currentDateTime.toString()
                     )
-                    viewModel.sendMessage(realm, obj)
+                    chatViewModel.sendMessage(realm, obj)
                 }
                 // DEBUG ONLY // isPrivate this to clear db
                 if (message == "cleardb") {
-                    viewModel.clearDatabase(realm)
+                    chatViewModel.clearDatabase(realm)
                 }
                 // DEBUG ONLY
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)

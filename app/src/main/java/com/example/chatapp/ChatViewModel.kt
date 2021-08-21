@@ -3,7 +3,7 @@ package com.example.chatapp
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 
-class ChatViewmodel : ViewModel() {
+class ChatViewModel : ViewModel() {
     fun sendMessage(realm: Realm, message: Message) {
         realm.executeTransactionAsync { bgRealm ->
             bgRealm.copyToRealmOrUpdate(message)

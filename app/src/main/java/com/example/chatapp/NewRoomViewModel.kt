@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 
-class NewRoomViewmodel : ViewModel() {
+class NewRoomViewModel : ViewModel() {
     private val partition = _partition
     private val user = chatApp.currentUser()
     private val config = SyncConfiguration.Builder(user, partition).build()

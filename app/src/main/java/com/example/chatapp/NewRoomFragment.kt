@@ -10,7 +10,7 @@ import com.example.chatapp.databinding.FragmentNewRoomBinding
 
 class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
-    private val viewModel: NewRoomViewmodel by viewModels()
+    private val newRoomViewModel: NewRoomViewModel by viewModels()
     private val args: NewRoomFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,10 +39,10 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
                     if (private) {
                         password = binding.newRoomPassword.text.toString()
                     }
-                    if (viewModel.exists(roomName)) {
+                    if (newRoomViewModel.exists(roomName)) {
                         Toast.makeText(context, "Room already exists.", Toast.LENGTH_SHORT).show()
                     } else {
-                        viewModel.createRoomObject(roomName, private, password)
+                        newRoomViewModel.createRoomObject(roomName, private, password)
                         goToChat()
                     }
                 } else {

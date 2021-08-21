@@ -17,7 +17,7 @@ import io.realm.mongodb.Credentials
 
 class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelectedListener {
 
-    private val loginViewmodel: LoginViewmodel by viewModels()
+    private val loginViewmodel: LoginViewModel by viewModels()
     private lateinit var binding: FragmentLoginBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
