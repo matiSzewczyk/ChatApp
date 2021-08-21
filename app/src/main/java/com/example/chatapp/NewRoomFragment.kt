@@ -21,11 +21,11 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
         binding.newRoomPassword.visibility = View.INVISIBLE
 
-        binding.newRoomType.setOnCheckedChangeListener { _, i ->
-            if (i == R.id.new_type_public) {
+        binding.newRoomType.setOnCheckedChangeListener { _, id ->
+            if (id == R.id.new_type_public) {
                 binding.newRoomPassword.visibility = View.INVISIBLE
             }
-            if (i == R.id.new_type_private) {
+            if (id == R.id.new_type_private) {
                 binding.newRoomPassword.visibility = View.VISIBLE
             }
         }
