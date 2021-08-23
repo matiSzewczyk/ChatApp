@@ -2,6 +2,8 @@ package com.example.chatapp
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -41,7 +43,11 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                     if (isPrivate()) {
                         showPasswordInput()
                     } else {
-                        connect()
+                        if (isInternetAvailable()) {
+                            connect()
+                        } else {
+                            Toast.makeText(requireContext(), "Error: No connection found.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
                     Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
@@ -69,6 +75,19 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
             }
             false
         }
+    }
+
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capability = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capability != null) {
+            when {
+                capability.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
+                capability.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
+                capability.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+            }
+        }
+        return false
     }
 
     private fun isPrivate(): Boolean {
