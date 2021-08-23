@@ -80,8 +80,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                     if (message == "cleardb") {
                         chatViewModel.clearDatabase(realm)
                     }
+                    // DEBUG ONLY
                 }
-                // DEBUG ONLY
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
