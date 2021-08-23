@@ -2,6 +2,7 @@ package com.example.chatapp
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+import kotlin.math.log
 
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -24,7 +26,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
     //listener
-    private lateinit var messageListener: RealmChangeListener<RealmResults<Message>>
+    private lateinit var listener: RealmChangeListener<RealmResults<Message>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +54,11 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         }
         binding.sendMessageButton.setOnClickListener(this)
 
-        messageListener = RealmChangeListener {
+        listener = RealmChangeListener {
+            chatAdapter.notifyItemChanged(chatAdapter.itemCount - 1)
             binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
-        chatAdapter.messages.addChangeListener(messageListener)
+        chatAdapter.messages.addChangeListener(listener)
 
     }
 

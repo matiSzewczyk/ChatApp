@@ -37,6 +37,7 @@ class ChatViewModel : ViewModel() {
 
             if (previousMsg.isAfter(currentMsg.minusMinutes(2))) {
                 prevMsg.message = prevMsg.message + "\n$message"
+                bgRealm.copyToRealmOrUpdate(prevMsg)
                 println("works")
             } else {
                 bgRealm.copyToRealmOrUpdate(msg)
