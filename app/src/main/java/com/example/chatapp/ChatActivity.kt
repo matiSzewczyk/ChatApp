@@ -1,7 +1,6 @@
 package com.example.chatapp
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -67,18 +66,21 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 val currentDateTime = LocalDateTime.now()
                 val message = binding.chatInput.text.toString()
 
-                if (message.isNotEmpty()) {
-                    val obj = chatViewModel.createObject(
-                        intent.getStringExtra("username").toString(),
-                        binding.chatInput.text.toString(),
-                        currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
-                        currentDateTime.toString()
-                    )
-                    chatViewModel.sendMessage(realm, obj)
-                }
-                // DEBUG ONLY // isPrivate this to clear db
-                if (message == "cleardb") {
-                    chatViewModel.clearDatabase(realm)
+                if (ConnectionChecker.isInternetAvailable(applicationContext)) {
+                    if (message.isNotEmpty()) {
+                        val obj = chatViewModel.createObject(
+                            intent.getStringExtra("username").toString(),
+                            binding.chatInput.text.toString(),
+                            currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM))
+                                .toString(),
+                            currentDateTime.toString()
+                        )
+                        chatViewModel.sendMessage(realm, obj)
+                    }
+                    // DEBUG ONLY // isPrivate this to clear db
+                    if (message == "cleardb") {
+                        chatViewModel.clearDatabase(realm)
+                    }
                 }
                 // DEBUG ONLY
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)

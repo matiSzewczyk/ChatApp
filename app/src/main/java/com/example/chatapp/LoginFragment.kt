@@ -43,7 +43,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
                     if (isPrivate()) {
                         showPasswordInput()
                     } else {
-                        if (isInternetAvailable()) {
+                        if (ConnectionChecker.isInternetAvailable(requireContext())) {
                             connect()
                         } else {
                             Toast.makeText(requireContext(), "Error: No connection found.", Toast.LENGTH_SHORT).show()
@@ -75,19 +75,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
             }
             false
         }
-    }
-
-    private fun isInternetAvailable(): Boolean {
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-            }
-        }
-        return false
     }
 
     private fun isPrivate(): Boolean {
