@@ -79,12 +79,12 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     private fun isInternetAvailable(): Boolean {
         val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capability = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capability != null) {
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
             when {
-                capability.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capability.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capability.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
             }
         }
         return false
