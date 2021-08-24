@@ -71,11 +71,10 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                         val obj = chatViewModel.createObject(
                             intent.getStringExtra("username").toString(),
                             binding.chatInput.text.toString(),
-                            currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM))
-                                .toString(),
+                            currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                             currentDateTime.toString()
                         )
-                        chatViewModel.getPreviousMessage(realm, obj)
+                        chatViewModel.sendMessage(realm, obj)
                     }
                     // DEBUG ONLY // isPrivate this to clear db
                     if (message == "cleardb") {

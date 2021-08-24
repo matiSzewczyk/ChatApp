@@ -16,7 +16,7 @@ class ChatViewModel : ViewModel() {
         return message
     }
 
-    fun getPreviousMessage(realm: Realm, currentMsg: Message) {
+    fun sendMessage(realm: Realm, currentMsg: Message) {
         realm.executeTransactionAsync { bgRealm ->
             val previousMsg = bgRealm.where(Message::class.java)
                 .findAll()
