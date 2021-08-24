@@ -2,7 +2,6 @@ package com.example.chatapp
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -15,7 +14,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
-import kotlin.math.log
 
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
 

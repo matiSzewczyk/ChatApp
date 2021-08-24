@@ -16,12 +16,6 @@ class ChatViewModel : ViewModel() {
         return message
     }
 
-    fun sendMessage(realm: Realm, message: Message) {
-        realm.executeTransactionAsync { bgRealm ->
-            bgRealm.copyToRealmOrUpdate(message)
-        }
-    }
-
     fun getPreviousMessage(realm: Realm, currentMsg: Message) {
         realm.executeTransactionAsync { bgRealm ->
             val previousMsg = bgRealm.where(Message::class.java)
