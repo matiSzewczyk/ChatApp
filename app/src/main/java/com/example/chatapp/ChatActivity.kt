@@ -76,7 +76,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                             currentDateTime.toString()
                         )
                         chatViewModel.getPreviousMessage(realm, obj)
-//                        chatViewModel.sendMessage(realm, obj)
                     }
                     // DEBUG ONLY // isPrivate this to clear db
                     if (message == "cleardb") {
