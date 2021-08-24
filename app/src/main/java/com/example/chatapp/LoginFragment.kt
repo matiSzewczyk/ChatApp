@@ -81,9 +81,9 @@ class LoginFragment : Fragment(R.layout.fragment_login), AdapterView.OnItemSelec
 
     private fun showPasswordInput() {
         binding.roomPasswordInput.apply {
-            showSoftKeyboard(this)
             visibility = View.VISIBLE
             requestFocus()
+            showSoftKeyboard(this)
         }
     }
 
