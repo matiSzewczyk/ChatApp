@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.example.chatapp.databinding.FragmentNewRoomBinding
 
 class NewRoomFragment : Fragment(R.layout.fragment_new_room){
