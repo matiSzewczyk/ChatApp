@@ -1,12 +1,14 @@
 package com.example.chatapp
 
-import android.content.Intent
+import android.net.Credentials
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentLoginBinding
-import io.realm.mongodb.Credentials
+import io.realm.mongodb.Credentials.emailPassword
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -20,39 +22,44 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         // Connect button logic
         binding.confirmConnectButton.setOnClickListener {
-            if (binding.loginUsername.text.isNotEmpty()) {
-                if (!binding.loginUsername.text.contains(" ")) {
-                    if (ConnectionChecker.isInternetAvailable(requireContext())) {
-                        connect()
-                    } else {
-                        Toast.makeText(requireContext(), "Error: No connection found.", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
+            if (inputsNotEmpty()) {
+                if (!containsWhitespace()) {
+                    login()
                 }
-            } else {
-                Toast.makeText(requireContext(), "Username cannot be empty.", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
-
-    private fun connect() {
-        chatApp.loginAsync(Credentials.anonymous()) {
+    private fun login() {
+        val emailPasswordCredentials: io.realm.mongodb.Credentials = emailPassword(
+            "asdf",
+            "asdfasf"
+        )
+        chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
-                val username = binding.loginUsername.text.toString()
-                val intent = Intent(this.requireContext(), ChatActivity::class.java)
-                intent.putExtra("username", username)//send the username from input
-                startActivity(intent)
+                Log.i("AUTH", "success")
             } else {
-                Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
+                Log.i("AUTH", it.error.toString())
             }
         }
+        val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(binding.loginUsername.text.toString())
+        findNavController().navigate(action)
     }
 
+    private fun inputsNotEmpty(): Boolean {
+        if (binding.loginUsername.text.isNotEmpty()
+            && binding.loginPassword.text.isNotEmpty()) {
+            return true
+        }
+        Toast.makeText(requireContext(), "Cannot leave any fields empty.", Toast.LENGTH_SHORT).show()
+        return false
+    }
 
-
-
+    private fun containsWhitespace(): Boolean {
+        if (binding.loginUsername.text.contains(" ")) {
+            Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+        return false
+    }
 }

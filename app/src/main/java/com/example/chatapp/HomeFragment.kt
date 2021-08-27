@@ -13,8 +13,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val binding = FragmentHomeBinding.bind(view)
 
-        binding.connectBtn.setOnClickListener {
+        binding.homeLoginBtn.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragment2ToLoginFragment()
+            findNavController().navigate(action)
+        }
+        binding.homeRegisterBtn.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToRegisterFragment()
             findNavController().navigate(action)
         }
     }

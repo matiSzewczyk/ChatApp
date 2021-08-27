@@ -11,12 +11,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_newRoomFragment"
-            app:destination="@id/newRoomFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_loginFragment_to_loginSuccessfulFragment"
+            app:destination="@id/loginSuccessfulFragment" />
     </fragment>
     <fragment
         android:id="@+id/HomeFragment"
@@ -29,6 +25,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_HomeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/newRoomFragment"
@@ -39,4 +38,31 @@
             android:name="username"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/loginSuccessfulFragment"
+        android:name="com.example.chatapp.LoginSuccessfulFragment"
+        android:label="LoginSuccessfulFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.chatapp.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_registerSuccessfulFragment"
+            app:destination="@id/registerSuccessfulFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomMenuFragment"
+        android:name="com.example.chatapp.RoomMenuFragment"
+        android:label="fragment_room_menu"
+        tools:layout="@layout/fragment_room_menu" />
+    <fragment
+        android:id="@+id/registerSuccessfulFragment"
+        android:name="com.example.chatapp.RegisterSuccessfulFragment"
+        android:label="fragment_register_successful"
+        tools:layout="@layout/fragment_register_successful" />
 </navigation>
