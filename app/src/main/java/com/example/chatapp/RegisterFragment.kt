@@ -21,7 +21,15 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
             if (inputsNotEmpty()) {
                 if (!containsWhitespace()) {
                     if (passwordMatch()) {
-                        register()
+                        if (ConnectionChecker.isInternetAvailable(requireContext())) {
+                            register()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Unable to proceed. Please check your internet connection",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }
@@ -63,6 +71,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
     private fun passwordMatch(): Boolean {
         if (binding.registerPassword.text.toString() == binding.registerPasswordConfirm.text.toString()) {
             return true
+        }
+        binding.apply {
+            registerPassword.text.clear()
+            registerPasswordConfirm.text.clear()
         }
         Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_SHORT).show()
         return false

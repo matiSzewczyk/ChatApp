@@ -41,7 +41,15 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
             if (isPrivate()) {
                  showPasswordInput()
             } else {
-                connect()
+                if (ConnectionChecker.isInternetAvailable(requireContext())) {
+                    connect()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Unable to proceed. Please check your internet connection",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 

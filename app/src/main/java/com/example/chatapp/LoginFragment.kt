@@ -1,7 +1,6 @@
 package com.example.chatapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,7 +22,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.confirmConnectButton.setOnClickListener {
             if (inputsNotEmpty()) {
                 if (!containsWhitespace()) {
-                    login()
+                    if (ConnectionChecker.isInternetAvailable(requireContext())) {
+                        login()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Unable to proceed. Please check your internet connection",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
@@ -36,15 +43,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         )
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
-                Log.i("AUTH", "success")
                 val action = LoginFragmentDirections.actionLoginFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
             } else {
-                Log.i("AUTH", it.error.toString())
+                Toast.makeText(requireContext(), "Name or password incorrect.", Toast.LENGTH_SHORT).show()
             }
-//            val user = chatApp.currentUser()
-//            val username = user?.profile?.email
-//            Toast.makeText(requireContext(), username, Toast.LENGTH_SHORT).show()
         }
     }
 

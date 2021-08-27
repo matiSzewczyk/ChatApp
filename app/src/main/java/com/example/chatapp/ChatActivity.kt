@@ -86,7 +86,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
-                Toast.makeText(applicationContext, _partition, Toast.LENGTH_SHORT).show()
                 hideSoftKeyboard(binding.chatInput)
             }
         }
