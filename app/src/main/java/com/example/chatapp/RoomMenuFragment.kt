@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.chatapp.databinding.FragmentRoomMenuBinding
 import io.realm.mongodb.Credentials
 
@@ -32,10 +33,18 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         spinner.onItemSelectedListener = this
 
 
-//        binding.makeNewRoomButton.setOnClickListener {
-//            val action = LoginFragmentDirections.actionLoginFragmentToNewRoomFragment()
-//            findNavController().navigate(action)
-//        }
+        binding.makeNewRoomButton.setOnClickListener {
+            val action = RoomMenuFragmentDirections.actionRoomMenuFragmentToNewRoomFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.connectToRoomBtn.setOnClickListener {
+            if (isPrivate()) {
+                 showPasswordInput()
+            } else {
+                connect()
+            }
+        }
 
         binding.roomPasswordInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -70,7 +79,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-//        loginViewmodel.index = parent!!.selectedItemPosition
+        loginViewmodel.index = parent!!.selectedItemPosition
         if (!loginViewmodel.roomList[loginViewmodel.index]!!.isPrivate) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
         }
@@ -93,15 +102,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun connect() {
-        chatApp.loginAsync(Credentials.anonymous()) {
-            if (it.isSuccess) {
-//                val username = binding.loginUsername.text.toString()
-//                val intent = Intent(this.requireContext(), ChatActivity::class.java)
-//                intent.putExtra("username", username)//send the username from input
-//                startActivity(intent)
-            } else {
-                Toast.makeText(context, "An error occurred.", Toast.LENGTH_SHORT).show()
-            }
-        }
+        val intent = Intent(this.requireContext(), ChatActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -11,7 +11,6 @@ import com.example.chatapp.databinding.FragmentNewRoomBinding
 class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 
     private val newRoomViewModel: NewRoomViewModel by viewModels()
-    private val args: NewRoomFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,9 +53,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
         }
     }
     private fun goToChat() {
-        val username = args.username
         val intent = Intent(this.requireContext(), ChatActivity::class.java)
-        intent.putExtra("username", username)//send the username from input
         startActivity(intent)
     }
 }

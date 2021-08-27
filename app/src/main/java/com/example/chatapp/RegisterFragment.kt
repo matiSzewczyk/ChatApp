@@ -38,7 +38,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
                 Log.i("EXAMPLE", it.error.toString())
             }
         }
-        val action = RegisterFragmentDirections.actionRegisterFragmentToRegisterSuccessfulFragment()
+        val action = RegisterFragmentDirections.actionRegisterFragmentToRoomMenuFragment()
         findNavController().navigate(action)
     }
 

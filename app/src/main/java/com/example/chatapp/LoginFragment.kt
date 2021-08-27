@@ -37,11 +37,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
                 Log.i("AUTH", "success")
-                val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(binding.loginUsername.text.toString())
+                val action = LoginFragmentDirections.actionLoginFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
             } else {
                 Log.i("AUTH", it.error.toString())
             }
+//            val user = chatApp.currentUser()
+//            val username = user?.profile?.email
+//            Toast.makeText(requireContext(), username, Toast.LENGTH_SHORT).show()
         }
     }
 

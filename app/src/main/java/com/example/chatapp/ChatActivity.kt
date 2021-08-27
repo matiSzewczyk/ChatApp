@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +70,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 if (ConnectionChecker.isInternetAvailable(applicationContext)) {
                     if (message.isNotEmpty()) {
                         val obj = chatViewModel.createObject(
-                            intent.getStringExtra("username").toString(),
+                            chatApp.currentUser()!!.profile.email.toString(),
                             binding.chatInput.text.toString(),
                             currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                             currentDateTime.toString()
@@ -85,6 +86,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                 binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
                 binding.chatInput.text.clear()
                 binding.chatInput.clearFocus()
+                Toast.makeText(applicationContext, _partition, Toast.LENGTH_SHORT).show()
                 hideSoftKeyboard(binding.chatInput)
             }
         }

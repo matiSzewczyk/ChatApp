@@ -11,8 +11,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_loginSuccessfulFragment"
-            app:destination="@id/loginSuccessfulFragment" />
+            android:id="@+id/action_loginFragment_to_roomMenuFragment"
+            app:destination="@id/roomMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/HomeFragment"
@@ -33,36 +33,23 @@
         android:id="@+id/newRoomFragment"
         android:name="com.example.chatapp.NewRoomFragment"
         android:label="fragment_new_room"
-        tools:layout="@layout/fragment_new_room" >
-        <argument
-            android:name="username"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginSuccessfulFragment"
-        android:name="com.example.chatapp.LoginSuccessfulFragment"
-        android:label="LoginSuccessfulFragment" >
-        <argument
-            android:name="username"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_new_room" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.chatapp.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_registerSuccessfulFragment"
-            app:destination="@id/registerSuccessfulFragment" />
+            android:id="@+id/action_registerFragment_to_roomMenuFragment"
+            app:destination="@id/roomMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomMenuFragment"
         android:name="com.example.chatapp.RoomMenuFragment"
         android:label="fragment_room_menu"
-        tools:layout="@layout/fragment_room_menu" />
-    <fragment
-        android:id="@+id/registerSuccessfulFragment"
-        android:name="com.example.chatapp.RegisterSuccessfulFragment"
-        android:label="fragment_register_successful"
-        tools:layout="@layout/fragment_register_successful" />
+        tools:layout="@layout/fragment_room_menu" >
+        <action
+            android:id="@+id/action_roomMenuFragment_to_newRoomFragment"
+            app:destination="@id/newRoomFragment" />
+    </fragment>
 </navigation>
