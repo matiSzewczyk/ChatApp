@@ -1,6 +1,5 @@
 package com.example.chatapp
 
-import android.net.Credentials
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +16,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _partition = "temp"
+        _partition = "partition"
         binding = FragmentLoginBinding.bind(view)
 
         // Connect button logic
@@ -32,18 +31,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun login() {
         val emailPasswordCredentials: io.realm.mongodb.Credentials = emailPassword(
-            "asdf",
-            "asdfasf"
+            binding.loginUsername.text.toString(),
+            binding.loginPassword.text.toString()
         )
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
                 Log.i("AUTH", "success")
+                val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(binding.loginUsername.text.toString())
+                findNavController().navigate(action)
             } else {
                 Log.i("AUTH", it.error.toString())
             }
         }
-        val action = LoginFragmentDirections.actionLoginFragmentToLoginSuccessfulFragment(binding.loginUsername.text.toString())
-        findNavController().navigate(action)
     }
 
     private fun inputsNotEmpty(): Boolean {

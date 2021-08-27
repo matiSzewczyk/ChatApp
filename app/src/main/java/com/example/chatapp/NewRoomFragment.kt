@@ -17,7 +17,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentNewRoomBinding.bind(view)
-        _partition = "temp"
+        _partition = "partition"
 
         binding.newRoomPassword.visibility = View.INVISIBLE
 
