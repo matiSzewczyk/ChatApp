@@ -102,6 +102,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun connect() {
+        _partition = loginViewmodel.roomList[loginViewmodel.index]!!.name // Change the chat room
         val intent = Intent(this.requireContext(), ChatActivity::class.java)
         startActivity(intent)
     }
