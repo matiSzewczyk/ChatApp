@@ -59,7 +59,7 @@
         android:layout_marginTop="15dp"
         android:width="200dp"
         android:background="@drawable/basic_button"
-        android:text="connect"
+        android:text="@string/connect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/make_new_room_button" />
