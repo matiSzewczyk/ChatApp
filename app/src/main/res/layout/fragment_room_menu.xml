@@ -67,7 +67,12 @@
     <EditText
         android:id="@+id/room_password_input"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:textCursorDrawable="@color/white"
+        android:layout_marginBottom="15dp"
+        android:paddingStart="20dp"
+        android:background="@drawable/input_background"
+        android:textColor="@color/white"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
