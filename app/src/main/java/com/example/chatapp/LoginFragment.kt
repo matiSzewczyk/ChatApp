@@ -18,6 +18,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         _partition = "partition"
         binding = FragmentLoginBinding.bind(view)
 
+        println("The current user: ${chatApp.currentUser()?.profile?.email}")
+
+
         // Connect button logic
         binding.confirmConnectButton.setOnClickListener {
             if (inputsNotEmpty()) {
