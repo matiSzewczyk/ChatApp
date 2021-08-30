@@ -1,18 +1,12 @@
 package com.example.chatapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.chatapp.databinding.ActivityMainBinding
-import io.realm.mongodb.User
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +17,11 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         setSupportActionBar(binding.toolbar)
+        setupActionBarWithNavController(navController)
 
         binding.profilePicture.setOnClickListener {
             val fragment: Fragment = if (chatApp.currentUser()!!.profile.email != null) {
@@ -32,6 +30,12 @@ class MainActivity : AppCompatActivity() {
                 LoginFragment()
             }
             supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
                 replace(R.id.nav_host_fragment, fragment)
                 addToBackStack(null)
                 commit()
