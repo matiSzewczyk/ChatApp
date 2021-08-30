@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.chatapp.databinding.ActivityMainBinding
@@ -29,17 +31,16 @@ class MainActivity : AppCompatActivity() {
             } else {
                 LoginFragment()
             }
-            supportFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                replace(R.id.nav_host_fragment, fragment)
-                addToBackStack(null)
-                commit()
-            }
+//            supportFragmentManager.beginTransaction()
+//                .setCustomAnimations(
+//                    R.anim.slide_in_right,
+//                    R.anim.slide_out_left,
+//                    R.anim.slide_in_left,
+//                    R.anim.slide_out_right
+//                )
+//                .replace(R.id.nav_host_fragment, fragment)
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 }
