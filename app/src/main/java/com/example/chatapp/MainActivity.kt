@@ -2,11 +2,8 @@ package com.example.chatapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.NavGraph
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -29,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.profilePicture.setOnClickListener {
             val action: NavDirections = if (chatApp.currentUser()!!.profile.email != null) {
-                NavGraphDirections.actionGlobalLoginFragment()
+                NavGraphDirections.actionGlobalUserProfileFragment()
             } else {
                 NavGraphDirections.actionGlobalLoginFragment()
             }
