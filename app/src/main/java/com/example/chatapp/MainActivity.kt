@@ -1,13 +1,17 @@
 package com.example.chatapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.chatapp.databinding.ActivityMainBinding
+import io.realm.Realm
+import io.realm.mongodb.sync.SyncConfiguration
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +27,21 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController)
+        val partition = _partition
+        val user = chatApp.currentUser()
+        val config = SyncConfiguration.Builder(user, partition).build()
+        val realm = Realm.getInstance(config)
+
+//        if (chatApp.currentUser()!!.profile.email != null) {
+//            Toast.makeText(
+//                applicationContext,
+//                "sup",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            val img = realm.where(ProfilePicture::class.java).equalTo("_id", user?.id).findFirst()
+//            val newUri = img!!.picture.toString().toUri()
+//            binding.profilePicture.setImageURI(newUri)
+//        }
 
         binding.profilePicture.setOnClickListener {
             val action: NavDirections = if (chatApp.currentUser()!!.profile.email != null) {
@@ -32,5 +51,9 @@ class MainActivity : AppCompatActivity() {
             }
             navController.navigate(action)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
