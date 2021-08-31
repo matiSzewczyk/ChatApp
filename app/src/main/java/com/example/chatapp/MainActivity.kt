@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.chatapp.databinding.ActivityMainBinding
 
@@ -20,27 +22,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
+        navController = navHostFragment.findNavController()
 
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController)
 
         binding.profilePicture.setOnClickListener {
-            val fragment: Fragment = if (chatApp.currentUser()!!.profile.email != null) {
-                UserProfileFragment()
+            val action: NavDirections = if (chatApp.currentUser()!!.profile.email != null) {
+                NavGraphDirections.actionGlobalLoginFragment()
             } else {
-                LoginFragment()
+                NavGraphDirections.actionGlobalLoginFragment()
             }
-//            supportFragmentManager.beginTransaction()
-//                .setCustomAnimations(
-//                    R.anim.slide_in_right,
-//                    R.anim.slide_out_left,
-//                    R.anim.slide_in_left,
-//                    R.anim.slide_out_right
-//                )
-//                .replace(R.id.nav_host_fragment, fragment)
-//                .addToBackStack(null)
-//                .commit()
+            navController.navigate(action)
         }
     }
 }
