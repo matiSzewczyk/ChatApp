@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,6 +30,10 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        val profilePic = toolbar.findViewById<ImageView>(R.id.profile_picture)
+        val test = loginViewmodel.setPicture()
+        profilePic.setImageBitmap(test)
 
         binding.makeNewRoomButton.setOnClickListener {
             val action = RoomMenuFragmentDirections.actionRoomMenuFragmentToNewRoomFragment()

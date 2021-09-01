@@ -1,5 +1,8 @@
 package com.example.chatapp
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.view.View
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmResults
@@ -22,5 +25,11 @@ class LoginViewModel : ViewModel() {
         realm.executeTransactionAsync { bgRealm ->
             bgRealm.delete(ChatRoom::class.java)
         }
+    }
+
+    fun setPicture(): Bitmap {
+        val profilePic =
+            realm.where(ProfilePicture::class.java).equalTo("id", user!!.id).findFirst()
+        return BitmapFactory.decodeByteArray(profilePic!!.picture, 0, profilePic.picture!!.size)
     }
 }
