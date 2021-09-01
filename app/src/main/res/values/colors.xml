@@ -13,6 +13,7 @@
     <color name="theme_font_time">#6d758f</color>
     <color name="theme_font_message">#cad2ed</color>
     <color name="theme_darker">#4e5466</color>
+    <color name="theme_darkest">#464a5c</color>
     <color name="theme_medium">#51596b</color>
     <color name="theme_lighter">#5f687d</color>
     <color name="theme_lightest">#749cad</color>

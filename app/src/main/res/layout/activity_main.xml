@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:background="@color/theme_medium"
+        android:background="@color/theme_darkest"
         android:gravity="center_vertical"
         android:minHeight="80dp"
         android:padding="0dp"
