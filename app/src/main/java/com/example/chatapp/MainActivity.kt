@@ -1,5 +1,6 @@
 package com.example.chatapp
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,16 +34,15 @@ class MainActivity : AppCompatActivity() {
         val config = SyncConfiguration.Builder(user, partition).build()
         val realm = Realm.getInstance(config)
 
-//        if (chatApp.currentUser()!!.profile.email != null) {
-//            Toast.makeText(
-//                applicationContext,
-//                "sup",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            val img = realm.where(ProfilePicture::class.java).equalTo("_id", user?.id).findFirst()
-//            val newUri = img!!.picture.toString().toUri()
-//            binding.profilePicture.setImageURI(newUri)
-//        }
+        if (user!!.profile.email != null) {
+            val profilePic =
+                realm.where(ProfilePicture::class.java).equalTo("id", user.id).findFirst()
+            val convertedImg =
+                BitmapFactory.decodeByteArray(profilePic!!.picture, 0, profilePic.picture!!.size)
+            binding.profilePicture.setImageBitmap(convertedImg)
+        } else {
+            Toast.makeText(applicationContext, "Not logged in.", Toast.LENGTH_SHORT).show()
+        }
 
         binding.profilePicture.setOnClickListener {
             val action: NavDirections = if (chatApp.currentUser()!!.profile.email != null) {

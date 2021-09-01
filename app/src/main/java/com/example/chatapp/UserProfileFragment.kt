@@ -1,9 +1,9 @@
 package com.example.chatapp
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.chatapp.databinding.FragmentUserProfileBinding
 import io.realm.Realm
@@ -22,9 +22,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         val user = chatApp.currentUser()
         val config = SyncConfiguration.Builder(user, partition).build()
         val realm = Realm.getInstance(config)
-//        val xd = realm.where(ProfilePicture::class.java).equalTo("id", user?.id).findFirst()
-//        val newUri = xd!!.picture.toString().toUri()
-//        binding.userProfilePicture.setImageURI(newUri)
+
+        val profilePic = realm.where(ProfilePicture::class.java).equalTo("id", user?.id).findFirst()
+        val convertedImg = BitmapFactory.decodeByteArray(profilePic!!.picture, 0 , profilePic.picture!!.size)
+        binding.userProfilePicture.setImageBitmap(convertedImg)
 
         val getImage = registerForActivityResult(
             ActivityResultContracts.GetContent()
@@ -32,6 +33,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             val stream = activity?.contentResolver?.openInputStream(it)
             val img = stream!!.readBytes()
             val picture = ProfilePicture()
+            picture.id = user!!.id
             picture.picture = img
             realm.executeTransactionAsync { bgRealm ->
                 bgRealm.copyToRealmOrUpdate(picture)
