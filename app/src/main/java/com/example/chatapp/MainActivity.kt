@@ -29,21 +29,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController)
 
-        val partition = _partition
-        val user = chatApp.currentUser()
-        val config = SyncConfiguration.Builder(user, partition).build()
-        val realm = Realm.getInstance(config)
-
-        if (user!!.profile.email != null) {
-            val profilePic =
-                realm.where(ProfilePicture::class.java).equalTo("id", user.id).findFirst()
-            val convertedImg =
-                BitmapFactory.decodeByteArray(profilePic!!.picture, 0, profilePic.picture!!.size)
-            binding.profilePicture.setImageBitmap(convertedImg)
-        } else {
-            Toast.makeText(applicationContext, "Not logged in.", Toast.LENGTH_SHORT).show()
-        }
-
         binding.profilePicture.setOnClickListener {
             val action: NavDirections = if (chatApp.currentUser()!!.profile.email != null) {
                 NavGraphDirections.actionGlobalUserProfileFragment()
