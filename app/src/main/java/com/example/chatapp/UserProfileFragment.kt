@@ -24,8 +24,11 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         val realm = Realm.getInstance(config)
 
         val profilePic = realm.where(ProfilePicture::class.java).equalTo("id", user?.id).findFirst()
-        val convertedImg = BitmapFactory.decodeByteArray(profilePic!!.picture, 0 , profilePic.picture!!.size)
-        binding.userProfilePicture.setImageBitmap(convertedImg)
+        if (profilePic != null) {
+            val convertedImg =
+                BitmapFactory.decodeByteArray(profilePic.picture, 0, profilePic.picture!!.size)
+            binding.userProfilePicture.setImageBitmap(convertedImg)
+        }
 
         val getImage = registerForActivityResult(
             ActivityResultContracts.GetContent()

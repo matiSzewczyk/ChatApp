@@ -27,9 +27,11 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun setPicture(): Bitmap {
+    fun setPicture(): Bitmap? {
         val profilePic =
             realm.where(ProfilePicture::class.java).equalTo("id", user!!.id).findFirst()
-        return BitmapFactory.decodeByteArray(profilePic!!.picture, 0, profilePic.picture!!.size)
+        if (profilePic != null)
+            return BitmapFactory.decodeByteArray(profilePic.picture, 0, profilePic.picture!!.size)
+        return null
     }
 }

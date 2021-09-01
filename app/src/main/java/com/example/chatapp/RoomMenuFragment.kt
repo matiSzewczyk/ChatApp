@@ -33,7 +33,9 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         val profilePic = toolbar.findViewById<ImageView>(R.id.profile_picture)
         val test = loginViewmodel.setPicture()
-        profilePic.setImageBitmap(test)
+        if (test != null) {
+            profilePic.setImageBitmap(test)
+        }
 
         binding.makeNewRoomButton.setOnClickListener {
             val action = RoomMenuFragmentDirections.actionRoomMenuFragmentToNewRoomFragment()
