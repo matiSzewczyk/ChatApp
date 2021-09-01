@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController)
+
         val partition = _partition
         val user = chatApp.currentUser()
         val config = SyncConfiguration.Builder(user, partition).build()
