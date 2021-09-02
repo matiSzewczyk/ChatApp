@@ -7,18 +7,10 @@ import io.realm.annotations.RealmField
 import java.util.*
 
 @RealmClass
-open class Message : RealmObject() {
-    @PrimaryKey @RealmField("_id")
+open class ChatRoomUsers : RealmObject() {
+    @PrimaryKey
+    @RealmField("_id")
     var id: String = UUID.randomUUID().toString()
 
-    var username: String = ""
-
-    var message: String = ""
-
-    var time: String = ""
-
-    var timestamp: String = ""
-
-    var userId: String? = null
-
+    var image: ByteArray? = null
 }

@@ -7,12 +7,13 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ChatViewModel : ViewModel() {
-    fun createObject(username: String, text: String, time: String, timestamp: String) : Message {
+    fun createObject(username: String, text: String, time: String, timestamp: String, userId: String) : Message {
         val message = Message()
         message.username = username
         message.message = text
         message.time = time
         message.timestamp = timestamp
+        message.userId = userId
         return message
     }
 
@@ -58,6 +59,15 @@ class ChatViewModel : ViewModel() {
     fun clearDatabase(realm: Realm) {
         realm.executeTransactionAsync { bgRealm ->
             bgRealm.delete(Message::class.java)
+        }
+    }
+
+    fun addNewUser(realm: Realm, image: ByteArray?, userId: String) {
+        val newUser = ChatRoomUsers()
+        newUser.image = image
+        newUser.id = userId
+        realm.executeTransactionAsync { bgRealm ->
+            bgRealm.copyToRealmOrUpdate(newUser)
         }
     }
 }

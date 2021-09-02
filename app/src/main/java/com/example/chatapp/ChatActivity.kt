@@ -23,6 +23,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var realm: Realm
     private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
+    private var profilePic: ByteArray? = null
     //listener
     private lateinit var listener: RealmChangeListener<RealmResults<Message>>
 
@@ -34,10 +35,23 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
         partition = _partition
         user = chatApp.currentUser()
-        val config = SyncConfiguration.Builder(user, partition).build()
+        var config = SyncConfiguration.Builder(user, partition).build()
         realm = Realm.getInstance(config)
 
+        if (isNewUser()) {
+            partition = "partition"
+            config = SyncConfiguration.Builder(user, partition).build()
+            realm = Realm.getInstance(config)
+            profilePic = realm.where(ProfilePicture::class.java).equalTo("id", user?.id).findFirst()?.picture
+            partition = _partition
+            config = SyncConfiguration.Builder(user, partition).build()
+            realm = Realm.getInstance(config)
+            chatViewModel.addNewUser(realm, profilePic, user!!.id)
+        }
+
         chatAdapter = ChatAdapter(
+            realm.where(ChatRoomUsers::class.java)
+                .findAll(),
             realm.where(Message::class.java)
                 .findAll()
                 .sort("timestamp", Sort.ASCENDING)
@@ -72,7 +86,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                             chatApp.currentUser()!!.profile.email.toString(),
                             binding.chatInput.text.toString(),
                             currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
-                            currentDateTime.toString()
+                            currentDateTime.toString(),
+                            user!!.id
                         )
                         chatViewModel.sendMessage(realm, obj)
                     }
@@ -94,5 +109,11 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         val imm = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
         view.clearFocus()
+    }
+
+    private fun isNewUser(): Boolean {
+        if (realm.where(ChatRoomUsers::class.java).equalTo("id", user!!.id).findFirst() != null)
+            return false
+        return true
     }
 }
