@@ -18,7 +18,7 @@ import com.example.chatapp.databinding.FragmentRoomMenuBinding
 class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentRoomMenuBinding
-    private val loginViewmodel: LoginViewModel by viewModels()
+    private val roomMenuViewModel: RoomMenuViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +27,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
         val spinner = binding.spinner
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, loginViewmodel.roomList)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.roomList)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
@@ -65,7 +65,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun checkPassword(password: String) {
-        if (password == loginViewmodel.roomList[loginViewmodel.index]!!.password) {
+        if (password == roomMenuViewModel.roomList[roomMenuViewModel.index]!!.password) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
             hideSoftKeyboard(binding.roomPasswordInput)
             connect()
@@ -86,8 +86,8 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-        loginViewmodel.index = parent!!.selectedItemPosition
-        if (!loginViewmodel.roomList[loginViewmodel.index]!!.isPrivate) {
+        roomMenuViewModel.index = parent!!.selectedItemPosition
+        if (!roomMenuViewModel.roomList[roomMenuViewModel.index]!!.isPrivate) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
         }
     }
@@ -97,7 +97,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun isPrivate(): Boolean {
-        return loginViewmodel.roomList[loginViewmodel.index]!!.isPrivate
+        return roomMenuViewModel.roomList[roomMenuViewModel.index]!!.isPrivate
     }
 
     private fun showPasswordInput() {
@@ -109,7 +109,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun connect() {
-        _partition = loginViewmodel.roomList[loginViewmodel.index]!!.name // Change the chat room
+        _partition = roomMenuViewModel.roomList[roomMenuViewModel.index]!!.name // Change the chat room
         val intent = Intent(this.requireContext(), ChatActivity::class.java)
         startActivity(intent)
     }
