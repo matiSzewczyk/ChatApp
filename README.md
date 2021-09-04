@@ -3,5 +3,5 @@ Android application allowing it's users to create their own or join existing con
 
 * Register
 * Log in
-* Pick or create a publi/private password protected chat room
+* Pick or create a public/private password protected chat room
 * Communicate with other users!
