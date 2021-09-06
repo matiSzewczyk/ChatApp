@@ -1,6 +1,9 @@
-package com.example.chatapp
+package com.example.chatapp.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.chatapp.realm.ChatRoom
+import com.example.chatapp._partition
+import com.example.chatapp.chatApp
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.mongodb.sync.SyncConfiguration

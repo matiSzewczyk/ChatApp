@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.example.chatapp.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chatapp.ConnectionChecker
+import com.example.chatapp.R
+import com.example.chatapp._partition
+import com.example.chatapp.adapters.ChatAdapter
+import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.ActivityChatBinding
+import com.example.chatapp.realm.Message
+import com.example.chatapp.viewmodels.ChatViewModel
 import io.realm.*
 import io.realm.mongodb.sync.SyncConfiguration
 import java.time.LocalDateTime

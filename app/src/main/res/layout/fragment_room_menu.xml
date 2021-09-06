@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/theme_darker"
-    tools:context=".RoomMenuFragment">
+    tools:context=".fragments.RoomMenuFragment">
 
     <TextView
         android:id="@+id/select_room"

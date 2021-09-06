@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.example.chatapp.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.chatapp.*
+import com.example.chatapp.activities.ChatActivity
 import com.example.chatapp.databinding.FragmentRoomMenuBinding
+import com.example.chatapp.viewmodels.RoomMenuViewModel
 
 
 class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnItemSelectedListener {
@@ -23,6 +26,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        _partition = "partition"
         binding = FragmentRoomMenuBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
@@ -30,7 +34,6 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.roomList)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
-
 
         binding.makeNewRoomButton.setOnClickListener {
             val action = RoomMenuFragmentDirections.actionRoomMenuFragmentToNewRoomFragment()

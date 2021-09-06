@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.chatapp.LoginFragment"
+        android:name="com.example.chatapp.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.example.chatapp.HomeFragment"
+        android:name="com.example.chatapp.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment2_to_loginFragment"
@@ -31,12 +31,12 @@
     </fragment>
     <fragment
         android:id="@+id/newRoomFragment"
-        android:name="com.example.chatapp.NewRoomFragment"
+        android:name="com.example.chatapp.fragments.NewRoomFragment"
         android:label="fragment_new_room"
         tools:layout="@layout/fragment_new_room" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.chatapp.RegisterFragment"
+        android:name="com.example.chatapp.fragments.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/roomMenuFragment"
-        android:name="com.example.chatapp.RoomMenuFragment"
+        android:name="com.example.chatapp.fragments.RoomMenuFragment"
         android:label="fragment_room_menu"
         tools:layout="@layout/fragment_room_menu" >
         <action

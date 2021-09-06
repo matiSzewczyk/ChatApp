@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.example.chatapp.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.chatapp.ConnectionChecker
+import com.example.chatapp.R
+import com.example.chatapp._partition
+import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.FragmentRegisterBinding
+import io.realm.mongodb.Credentials
 
 class RegisterFragment : Fragment(R.layout.fragment_register){
 
@@ -16,6 +21,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRegisterBinding.bind(view)
+        _partition = "partition"
 
         binding.confirmRegisterButton.setOnClickListener {
             if (inputsNotEmpty()) {
@@ -52,18 +58,33 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         return false
     }
 
+    private fun login() {
+        val emailPasswordCredentials: Credentials = Credentials.emailPassword(
+            binding.registerUsername.text.toString(),
+            binding.registerPassword.text.toString()
+        )
+        chatApp.loginAsync(emailPasswordCredentials) {
+            if (it.isSuccess) {
+                Log.i("DEBUG", "Successfully logged in.")
+            } else {
+                Log.i("DEBUG", "Failed to log in.")
+            }
+        }
+    }
+
     private fun register() {
         val email = binding.registerUsername.text.toString()
         val password = binding.registerPassword.text.toString()
         chatApp.emailPassword.registerUserAsync(email, password) {
             if (it.isSuccess) {
-                Log.i("EXAMPLE", "Successfully registered user.")
+                Log.i("DEBUG", "Successfully registered user.")
+                login()
+                val action = RegisterFragmentDirections.actionRegisterFragmentToRoomMenuFragment()
+                findNavController().navigate(action)
             } else {
-                Log.i("EXAMPLE", it.error.toString())
+                Log.i("DEBUG", it.error.toString())
             }
         }
-        val action = RegisterFragmentDirections.actionRegisterFragmentToRoomMenuFragment()
-        findNavController().navigate(action)
     }
 
     private fun inputsNotEmpty(): Boolean {

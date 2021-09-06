@@ -1,6 +1,7 @@
-package com.example.chatapp
+package com.example.chatapp.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.chatapp.realm.Message
 import io.realm.Realm
 import io.realm.Sort
 import java.time.LocalDateTime
