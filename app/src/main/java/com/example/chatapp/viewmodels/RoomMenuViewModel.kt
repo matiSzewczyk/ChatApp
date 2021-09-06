@@ -17,7 +17,7 @@ class RoomMenuViewModel : ViewModel() {
     val roomList = getChatRooms()
     var index: Int = 0
 
-    private fun getChatRooms(): RealmResults<ChatRoom> {
+    fun getChatRooms(): RealmResults<ChatRoom> {
         return realm.where(ChatRoom::class.java).findAll()
     }
 

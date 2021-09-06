@@ -31,7 +31,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
         val spinner = binding.spinner
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.roomList)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
