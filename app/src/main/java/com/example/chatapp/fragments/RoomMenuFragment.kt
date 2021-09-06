@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.chatapp.*
 import com.example.chatapp.activities.ChatActivity
 import com.example.chatapp.databinding.FragmentRoomMenuBinding
+import com.example.chatapp.realm.ChatRoom
 import com.example.chatapp.viewmodels.RoomMenuViewModel
 
 
@@ -22,6 +23,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
 
     private lateinit var binding: FragmentRoomMenuBinding
     private val roomMenuViewModel: RoomMenuViewModel by viewModels()
+    private lateinit var adapter: ArrayAdapter<ChatRoom>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +33,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
         val spinner = binding.spinner
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
+        adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
@@ -93,10 +95,11 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         if (!roomMenuViewModel.roomList[roomMenuViewModel.index]!!.isPrivate) {
             binding.roomPasswordInput.visibility = View.INVISIBLE
         }
+        adapter.notifyDataSetChanged()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
+        adapter.notifyDataSetChanged()
     }
 
     private fun isPrivate(): Boolean {
