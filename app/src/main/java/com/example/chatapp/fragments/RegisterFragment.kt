@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.ConnectionChecker
 import com.example.chatapp.R
-import com.example.chatapp._partition
 import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.FragmentRegisterBinding
 import io.realm.mongodb.Credentials
@@ -77,6 +76,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         chatApp.emailPassword.registerUserAsync(email, password) {
             if (it.isSuccess) {
                 Log.i("DEBUG", "Successfully registered user.")
+                clearInput()
                 login()
                 val action = RegisterFragmentDirections.actionRegisterFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
@@ -84,6 +84,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
                 Log.i("DEBUG", it.error.toString())
             }
         }
+    }
+
+    private fun clearInput() {
+        binding.registerPasswordConfirm.text.clear()
+        binding.registerPassword.text.clear()
+        binding.registerUsername.text.clear()
     }
 
     private fun inputsNotEmpty(): Boolean {

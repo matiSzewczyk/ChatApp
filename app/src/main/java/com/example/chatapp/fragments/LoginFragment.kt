@@ -46,12 +46,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         )
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
+                clearInput()
                 val action = LoginFragmentDirections.actionLoginFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Name or password incorrect.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun clearInput() {
+        binding.loginPassword.text.clear()
+        binding.loginUsername.text.clear()
     }
 
     private fun inputsNotEmpty(): Boolean {
