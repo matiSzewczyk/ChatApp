@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.chatapp.ConnectionChecker
 import com.example.chatapp.R
-import com.example.chatapp._partition
 import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.FragmentLoginBinding
 import io.realm.mongodb.Credentials.emailPassword
