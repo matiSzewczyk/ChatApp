@@ -28,7 +28,6 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _partition = "partition"
         binding = FragmentRoomMenuBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
 

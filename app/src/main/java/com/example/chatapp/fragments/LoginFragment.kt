@@ -19,7 +19,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _partition = "partition"
         binding = FragmentLoginBinding.bind(view)
 
         // Connect button logic

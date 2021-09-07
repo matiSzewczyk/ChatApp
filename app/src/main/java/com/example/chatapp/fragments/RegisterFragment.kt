@@ -21,7 +21,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRegisterBinding.bind(view)
-        _partition = "partition"
 
         binding.confirmRegisterButton.setOnClickListener {
             if (inputsNotEmpty()) {
