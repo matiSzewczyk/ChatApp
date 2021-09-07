@@ -46,7 +46,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         )
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
-                clearInput()
                 val action = LoginFragmentDirections.actionLoginFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
             } else {
@@ -75,5 +74,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             return true
         }
         return false
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clearInput()
     }
 }

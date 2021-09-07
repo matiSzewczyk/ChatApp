@@ -76,7 +76,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         chatApp.emailPassword.registerUserAsync(email, password) {
             if (it.isSuccess) {
                 Log.i("DEBUG", "Successfully registered user.")
-                clearInput()
                 login()
                 val action = RegisterFragmentDirections.actionRegisterFragmentToRoomMenuFragment()
                 findNavController().navigate(action)
@@ -120,5 +119,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         }
         Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_SHORT).show()
         return false
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clearInput()
     }
 }
