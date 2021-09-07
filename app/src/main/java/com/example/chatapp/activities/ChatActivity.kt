@@ -1,5 +1,6 @@
 package com.example.chatapp.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -33,6 +34,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     //listener
     private lateinit var listener: RealmChangeListener<RealmResults<Message>>
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,13 +56,15 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
             chat.apply {
                 adapter = chatAdapter
                 layoutManager = LinearLayoutManager(this@ChatActivity)
-                scrollToPosition(chatAdapter.itemCount - 1)
+                if (chatAdapter.itemCount != 0) {
+                    scrollToPosition(chatAdapter.itemCount - 1)
+                }
             }
         }
         binding.sendMessageButton.setOnClickListener(this)
 
         listener = RealmChangeListener {
-            chatAdapter.notifyItemChanged(chatAdapter.itemCount - 1)
+            chatAdapter.notifyDataSetChanged()
             binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
         }
         chatAdapter.messages.addChangeListener(listener)

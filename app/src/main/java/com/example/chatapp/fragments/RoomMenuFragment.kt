@@ -33,7 +33,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
         val spinner = binding.spinner
-        adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
+        adapter = ArrayAdapter(requireActivity(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
@@ -116,7 +116,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
 
     private fun connect() {
         _partition = roomMenuViewModel.roomList[roomMenuViewModel.index]!!.name // Change the chat room
-        val intent = Intent(this.requireContext(), ChatActivity::class.java)
+        val intent = Intent(requireContext(), ChatActivity::class.java)
         startActivity(intent)
     }
 }
