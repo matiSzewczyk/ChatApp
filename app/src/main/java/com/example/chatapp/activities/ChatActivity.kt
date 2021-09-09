@@ -36,7 +36,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         chatAdapter = ChatAdapter(
             chatViewModel.getMessages()
         )
@@ -68,15 +67,14 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (ConnectionChecker.isInternetAvailable(applicationContext)) {
                     if (message.isNotEmpty()) {
-                        val obj = chatViewModel.createObject(
+                        chatViewModel.createObject(
                             chatApp.currentUser()!!.profile.email.toString(),
                             binding.chatInput.text.toString(),
                             currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                             currentDateTime.toString()
                         )
-                        chatViewModel.sendMessage(obj)
                     }
-                    // DEBUG ONLY // isPrivate this to clear db
+                    // DEBUG ONLY
                     if (message == "cleardb") {
                         chatViewModel.clearDatabase()
                     }

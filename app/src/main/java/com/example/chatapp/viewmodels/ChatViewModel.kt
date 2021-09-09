@@ -3,7 +3,6 @@ package com.example.chatapp.viewmodels
 import androidx.lifecycle.ViewModel
 import com.example.chatapp._partition
 import com.example.chatapp.chatApp
-import com.example.chatapp.realm
 import com.example.chatapp.realm.Message
 import io.realm.Realm
 import io.realm.RealmResults
@@ -19,16 +18,16 @@ class ChatViewModel : ViewModel() {
     private val config = SyncConfiguration.Builder(user, partition).build()
     private val realm = Realm.getInstance(config)
 
-    fun createObject(username: String, text: String, time: String, timestamp: String) : Message {
+    fun createObject(username: String, text: String, time: String, timestamp: String) {
         val message = Message()
         message.username = username
         message.message = text
         message.time = time
         message.timestamp = timestamp
-        return message
+        sendMessage(message)
     }
 
-    fun sendMessage(currentMsg: Message) {
+    private fun sendMessage(currentMsg: Message) {
         realm.executeTransactionAsync { bgRealm ->
             val previousMsg = bgRealm.where(Message::class.java)
                 .findAll()
