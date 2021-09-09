@@ -10,14 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.ConnectionChecker
 import com.example.chatapp.R
-import com.example.chatapp._partition
 import com.example.chatapp.adapters.ChatAdapter
 import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.ActivityChatBinding
 import com.example.chatapp.realm.Message
 import com.example.chatapp.viewmodels.ChatViewModel
 import io.realm.*
-import io.realm.mongodb.sync.SyncConfiguration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -26,9 +24,6 @@ import java.util.*
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityChatBinding
-    private var user: io.realm.mongodb.User? = null
-    private lateinit var partition: String
-    private lateinit var realm: Realm
     private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
     //listener
@@ -41,15 +36,9 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        partition = _partition
-        user = chatApp.currentUser()
-        val config = SyncConfiguration.Builder(user, partition).build()
-        realm = Realm.getInstance(config)
 
         chatAdapter = ChatAdapter(
-            realm.where(Message::class.java)
-                .findAll()
-                .sort("timestamp", Sort.ASCENDING)
+            chatViewModel.getMessages()
         )
 
         binding.apply {
@@ -85,11 +74,11 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                             currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                             currentDateTime.toString()
                         )
-                        chatViewModel.sendMessage(realm, obj)
+                        chatViewModel.sendMessage(obj)
                     }
                     // DEBUG ONLY // isPrivate this to clear db
                     if (message == "cleardb") {
-                        chatViewModel.clearDatabase(realm)
+                        chatViewModel.clearDatabase()
                     }
                     // DEBUG ONLY
                 }
