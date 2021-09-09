@@ -73,19 +73,23 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                             currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
                             currentDateTime.toString()
                         )
+                        // DEBUG ONLY
+                        if (message == "cleardb") {
+                            chatViewModel.clearDatabase()
+                        }
+                        // DEBUG ONLY
                     }
-                    // DEBUG ONLY
-                    if (message == "cleardb") {
-                        chatViewModel.clearDatabase()
-                    }
-                    // DEBUG ONLY
                 }
-                binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
-                binding.chatInput.text.clear()
-                binding.chatInput.clearFocus()
-                hideSoftKeyboard(binding.chatInput)
+                resetUi()
             }
         }
+    }
+
+    private fun resetUi() {
+        binding.chat.scrollToPosition(chatAdapter.itemCount - 1)
+        binding.chatInput.text.clear()
+        binding.chatInput.clearFocus()
+        hideSoftKeyboard(binding.chatInput)
     }
 
     private fun hideSoftKeyboard(view: View) {
