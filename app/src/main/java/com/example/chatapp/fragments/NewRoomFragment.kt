@@ -5,11 +5,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.chatapp.activities.ChatActivity
-import com.example.chatapp.viewmodels.NewRoomViewModel
 import com.example.chatapp.R
-import com.example.chatapp._partition
+import com.example.chatapp.activities.ChatActivity
 import com.example.chatapp.databinding.FragmentNewRoomBinding
+import com.example.chatapp.viewmodels.NewRoomViewModel
 
 class NewRoomFragment : Fragment(R.layout.fragment_new_room){
 

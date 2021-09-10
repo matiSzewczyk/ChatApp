@@ -26,7 +26,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityChatBinding
     private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var chatAdapter: ChatAdapter
-    //listener
     private lateinit var listener: RealmChangeListener<RealmResults<Message>>
 
     @SuppressLint("NotifyDataSetChanged")
