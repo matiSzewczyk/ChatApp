@@ -23,8 +23,5 @@ class ChatApp : Application() {
             AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
                 .build()
         )
-        user = chatApp.currentUser()!!
-        config = SyncConfiguration.Builder(user, _partition).build()
-        realm = Realm.getInstance(config)
     }
 }

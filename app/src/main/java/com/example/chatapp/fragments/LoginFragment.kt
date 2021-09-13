@@ -5,11 +5,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.chatapp.ConnectionChecker
-import com.example.chatapp.R
-import com.example.chatapp.chatApp
+import com.example.chatapp.*
 import com.example.chatapp.databinding.FragmentLoginBinding
+import io.realm.Realm
 import io.realm.mongodb.Credentials.emailPassword
+import io.realm.mongodb.sync.SyncConfiguration
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -46,11 +46,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         chatApp.loginAsync(emailPasswordCredentials) {
             if (it.isSuccess) {
                 val action = LoginFragmentDirections.actionLoginFragmentToRoomMenuFragment()
+                createRealm()
                 findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Name or password incorrect.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun createRealm() {
+        user = chatApp.currentUser()!!
+        config = SyncConfiguration.Builder(user, _partition).build()
+        realm = Realm.getInstance(config)
     }
 
     private fun clearInput() {
