@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +70,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                         chatViewModel.createObject(
                             chatApp.currentUser()!!.profile.email.toString(),
                             binding.chatInput.text.toString(),
-                            currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString(),
+                            currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM))
+                                .toString(),
                             currentDateTime.toString()
                         )
                         // DEBUG ONLY
@@ -78,6 +80,12 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
                         }
                         // DEBUG ONLY
                     }
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "No connection.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 resetUi()
             }
