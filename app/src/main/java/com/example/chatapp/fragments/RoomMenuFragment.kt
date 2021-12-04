@@ -31,10 +31,16 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding = FragmentRoomMenuBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
-        val spinner = binding.spinner
-        adapter = ArrayAdapter(requireActivity(), R.layout.spinner_item, roomMenuViewModel.getChatRooms())
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
+        if (roomMenuViewModel.isLoaded()) {
+            val spinner = binding.spinner
+            adapter = ArrayAdapter(
+                requireActivity(),
+                R.layout.spinner_item,
+                roomMenuViewModel.getChatRooms()
+            )
+            spinner.adapter = adapter
+            spinner.onItemSelectedListener = this
+        }
 
         binding.makeNewRoomButton.setOnClickListener {
             val action = RoomMenuFragmentDirections.actionRoomMenuFragmentToNewRoomFragment()
