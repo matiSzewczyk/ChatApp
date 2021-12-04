@@ -13,12 +13,6 @@ class RoomMenuViewModel : ViewModel() {
     fun getChatRooms(): RealmResults<ChatRoom> {
         return realm.where(ChatRoom::class.java).findAll()
     }
-    fun isLoaded() : Boolean {
-        if (roomList.isNotEmpty()) {
-            return true
-        }
-        return false
-    }
 
 //    fun delete() {
 //        realm.executeTransactionAsync { bgRealm ->

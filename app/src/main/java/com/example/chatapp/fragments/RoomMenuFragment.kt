@@ -17,6 +17,9 @@ import com.example.chatapp.activities.ChatActivity
 import com.example.chatapp.databinding.FragmentRoomMenuBinding
 import com.example.chatapp.realm.ChatRoom
 import com.example.chatapp.viewmodels.RoomMenuViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 
 
 class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnItemSelectedListener {
@@ -31,15 +34,16 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
         binding = FragmentRoomMenuBinding.bind(view)
         binding.roomPasswordInput.visibility = View.INVISIBLE
 
-        if (roomMenuViewModel.isLoaded()) {
+        CoroutineScope(Main).launch {
+            val roomList = roomMenuViewModel.getChatRooms()
             val spinner = binding.spinner
             adapter = ArrayAdapter(
                 requireActivity(),
                 R.layout.spinner_item,
-                roomMenuViewModel.getChatRooms()
+                roomList
             )
             spinner.adapter = adapter
-            spinner.onItemSelectedListener = this
+            spinner.onItemSelectedListener = this@RoomMenuFragment
         }
 
         binding.makeNewRoomButton.setOnClickListener {
