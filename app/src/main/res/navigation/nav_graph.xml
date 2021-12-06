@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HomeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -13,21 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_roomMenuFragment"
             app:destination="@id/roomMenuFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.example.chatapp.fragments.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment2_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_HomeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/newRoomFragment"

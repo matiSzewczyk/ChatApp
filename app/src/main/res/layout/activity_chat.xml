@@ -35,7 +35,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_background_upper"
             android:src="@drawable/send_image"
             tools:ignore="SpeakableTextPresentCheck" />
     </RelativeLayout>
