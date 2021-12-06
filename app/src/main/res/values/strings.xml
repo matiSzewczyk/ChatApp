@@ -2,10 +2,10 @@
     <string name="app_name">ChatApp</string>
     <string name="login_btn">Login</string>
     <string name="register_btn">Register</string>
-    <string name="email_hint">email</string>
-    <string name="username_hint">username</string>
-    <string name="password_hint">password</string>
-    <string name="confirm_password_hint">confirm password</string>
+    <string name="email_hint">Email</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm password</string>
     <string name="connect_button">Connect</string>
     <string name="ok_button_text">OK</string>
     <string name="chat_input_hint">Message…</string>

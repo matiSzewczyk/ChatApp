@@ -20,6 +20,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding = FragmentLoginBinding.bind(view)
 
+        // Sign up button
+        binding.signUpButton.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            findNavController().navigate(action)
+        }
+
         // Connect button logic
         binding.confirmConnectButton.setOnClickListener {
             if (inputsNotEmpty()) {
