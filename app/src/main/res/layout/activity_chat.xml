@@ -11,7 +11,6 @@
         android:id="@+id/rel_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_lightest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -19,9 +18,10 @@
         <EditText
             android:id="@+id/chat_input"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@drawable/input_background"
             android:elevation="5dp"
+            android:layout_margin="15dp"
             android:textColor="@color/white"
             android:ems="10"
             android:gravity="center"
@@ -32,10 +32,11 @@
 
         <ImageButton
             android:id="@+id/send_message_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="15dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/button_background_upper"
+            android:background="@drawable/button_background_rounded_white"
             android:src="@drawable/send_image"
             tools:ignore="SpeakableTextPresentCheck" />
     </RelativeLayout>
