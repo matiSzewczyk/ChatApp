@@ -73,7 +73,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:width="200dp"
-        android:background="@drawable/button_background_rounded"
+        android:background="@drawable/button_background_rounded_white"
         android:text="@string/register_btn"
         android:textColor="@color/theme_darker"
         android:textSize="15sp"

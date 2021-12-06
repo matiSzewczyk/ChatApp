@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="250dp"
         android:gravity="center"
-        android:textStyle="bold"
         android:text="@string/select_chat_room"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,37 +28,40 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/select_room"
         android:backgroundTint="@color/white"
+        android:layout_marginTop="250dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_room" />
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@id/select_room"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/make_new_room_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="52dp"
         android:width="200dp"
         android:text="@string/make_new_room"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:background="@drawable/button_background_rounded_dark"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/connect_to_room_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:width="200dp"
         android:text="@string/connect_button"
+        android:textColor="@color/theme_darker"
+        android:background="@drawable/button_background_rounded_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/make_new_room_button" />
@@ -66,10 +69,10 @@
     <EditText
         android:id="@+id/room_password_input"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/input_background"
-        android:elevation="5dp"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/white"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
