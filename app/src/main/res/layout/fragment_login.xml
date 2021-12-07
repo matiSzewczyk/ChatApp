@@ -38,9 +38,9 @@
         android:ems="12"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
-        android:textCursorDrawable="@color/white"
         android:paddingStart="20dp"
         android:textColorHint="@color/theme_lightest"
+        android:textCursorDrawable="@color/white"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -49,9 +49,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirm_connect_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="90dp"
         android:layout_marginTop="15dp"
+        android:layout_marginRight="90dp"
         android:width="200dp"
         android:background="@drawable/button_background_rounded_white"
         android:text="@string/login_btn"
