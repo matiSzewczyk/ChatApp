@@ -21,6 +21,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
 
         binding = FragmentRegisterBinding.bind(view)
 
+        // Log in button
+        binding.loginButton.setOnClickListener {
+            val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+            findNavController().navigate(action)
+        }
+
         binding.confirmRegisterButton.setOnClickListener {
             if (inputsNotEmpty()) {
                 if (!containsWhitespace()) {
