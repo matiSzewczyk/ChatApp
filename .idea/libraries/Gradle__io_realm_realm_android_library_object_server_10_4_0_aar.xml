@@ -3,8 +3,9 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fd82f0372fd7b075cc09bdce3b1d6cf0/transformed/jetified-realm-android-library-object-server-10.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/909483ef438bf72adb59faacfd207296/transformed/jetified-realm-android-library-object-server-10.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/909483ef438bf72adb59faacfd207296/transformed/jetified-realm-android-library-object-server-10.4.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/909483ef438bf72adb59faacfd207296/transformed/jetified-realm-android-library-object-server-10.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/24450e068753b8548bee3a074174b1cb/transformed/jetified-realm-android-library-object-server-10.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/24450e068753b8548bee3a074174b1cb/transformed/jetified-realm-android-library-object-server-10.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/24450e068753b8548bee3a074174b1cb/transformed/jetified-realm-android-library-object-server-10.4.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android-library-object-server/10.4.0/3401cdde8aa51d94e57b62346cba8e2718101855/realm-android-library-object-server-10.4.0-javadoc.jar!/" />
