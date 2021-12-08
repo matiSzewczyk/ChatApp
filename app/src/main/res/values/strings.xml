@@ -11,7 +11,7 @@
     <string name="chat_input_hint">Message…</string>
     <string name="select_chat_room">Select chat room:</string>
     <string name="make_new_room">Create new room</string>
-    <string name="new_room_hint">new room name</string>
+    <string name="new_room_hint">New room name</string>
     <string name="create_room_button">Create room</string>
     <string name="radio_public">Public</string>
     <string name="radio_private">Private</string>
