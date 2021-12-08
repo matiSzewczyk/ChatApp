@@ -39,7 +39,7 @@ class NewRoomFragment : Fragment(R.layout.fragment_new_room){
                     if (private) {
                         password = binding.newRoomPassword.text.toString()
                     }
-                    if (newRoomViewModel.exists(roomName)) {
+                    if (newRoomViewModel.roomExists(roomName)) {
                         Toast.makeText(context, "Room already exists.", Toast.LENGTH_SHORT).show()
                     } else {
                         newRoomViewModel.createRoomObject(roomName, private, password)
