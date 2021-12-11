@@ -40,15 +40,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
             chatViewModel.getMessages()
         )
 
-        binding.apply {
-            chat.apply {
-                adapter = chatAdapter
-                layoutManager = LinearLayoutManager(this@ChatActivity)
-                if (chatAdapter.itemCount != 0) {
-                    scrollToPosition(chatAdapter.itemCount - 1)
-                }
-            }
-        }
+        setupRecyclerView()
         binding.sendMessageButton.setOnClickListener(this)
 
         listener = RealmChangeListener {
@@ -57,6 +49,14 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         }
         chatAdapter.messages.addChangeListener(listener)
 
+    }
+
+    private fun setupRecyclerView() = binding.chat.apply{
+        adapter = chatAdapter
+        layoutManager = LinearLayoutManager(this@ChatActivity)
+        if (chatAdapter.itemCount != 0) {
+            scrollToPosition(chatAdapter.itemCount - 1)
+        }
     }
 
     override fun onClick(view: View?) {
