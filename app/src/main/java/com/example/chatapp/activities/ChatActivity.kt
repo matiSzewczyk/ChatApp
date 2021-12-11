@@ -36,10 +36,6 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        chatAdapter = ChatAdapter(
-            chatViewModel.getMessages()
-        )
-
         setupRecyclerView()
         binding.sendMessageButton.setOnClickListener(this)
 
@@ -52,6 +48,9 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupRecyclerView() = binding.chat.apply{
+        chatAdapter = ChatAdapter(
+            chatViewModel.getMessages()
+        )
         adapter = chatAdapter
         layoutManager = LinearLayoutManager(this@ChatActivity)
         if (chatAdapter.itemCount != 0) {
