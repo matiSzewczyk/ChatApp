@@ -49,17 +49,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun passwordMinLength(): Boolean {
-        if (binding.registerPassword.length() >= 6) {
-            return true
+        return if (binding.registerPassword.length() >= 6) {
+            true
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Password must be at least 6 characters long.",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.registerPassword.text.clear()
+            binding.registerPasswordConfirm.text.clear()
+            false
         }
-        Toast.makeText(
-            requireContext(),
-            "Password must be at least 6 characters long.",
-            Toast.LENGTH_SHORT
-        ).show()
-        binding.registerPassword.text.clear()
-        binding.registerPasswordConfirm.text.clear()
-        return false
     }
 
     private fun login() {
