@@ -81,11 +81,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun containsWhitespace(): Boolean {
-        if (binding.loginUsername.text.contains(" ")) {
+        return if (binding.loginUsername.text.contains(" ")) {
             Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
-            return true
-        }
-        return false
+            true
+        } else false
     }
 
     override fun onPause() {
