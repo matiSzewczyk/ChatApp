@@ -12,7 +12,7 @@ import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.FragmentRegisterBinding
 import io.realm.mongodb.Credentials
 
-class RegisterFragment : Fragment(R.layout.fragment_register){
+class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
 
@@ -97,34 +97,45 @@ class RegisterFragment : Fragment(R.layout.fragment_register){
         binding.registerUsername.text.clear()
     }
 
-    private fun inputsNotEmpty(): Boolean {
-        if (binding.registerUsername.text.isNotEmpty()
-            && binding.registerPassword.text.isNotEmpty()
-            && binding.registerPasswordConfirm.text.isNotEmpty()) {
-            return true
+    private fun inputsNotEmpty(): Boolean = when {
+        binding.registerUsername.text.isNotEmpty()
+                && binding.registerPassword.text.isNotEmpty()
+                && binding.registerPasswordConfirm.text.isNotEmpty() -> true
+        else -> {
+            Toast.makeText(
+                requireContext(),
+                "Cannot leave any fields empty.",
+                Toast.LENGTH_SHORT
+            ).show()
+            false
         }
-        Toast.makeText(requireContext(), "Cannot leave any fields empty.", Toast.LENGTH_SHORT).show()
-        return false
+
     }
 
-    private fun containsWhitespace(): Boolean {
-        if (binding.registerUsername.text.contains(" ")) {
-            Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
-            return true
+    private fun containsWhitespace(): Boolean = when {
+        binding.registerUsername.text.contains(" ") -> {
+            Toast.makeText(
+                requireContext(),
+                "Username cannot contain whitespace.",
+                Toast.LENGTH_SHORT
+            ).show()
+            true
         }
-        return false
+        else -> false
     }
 
-    private fun passwordMatch(): Boolean {
-        if (binding.registerPassword.text.toString() == binding.registerPasswordConfirm.text.toString()) {
-            return true
+    private fun passwordMatch(): Boolean = when {
+        binding.registerPassword.text.toString() == binding.registerPasswordConfirm.text.toString() -> {
+            true
         }
-        binding.apply {
-            registerPassword.text.clear()
-            registerPasswordConfirm.text.clear()
+        else -> {
+            binding.apply {
+                registerPassword.text.clear()
+                registerPasswordConfirm.text.clear()
+            }
+            Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_SHORT).show()
+            false
         }
-        Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_SHORT).show()
-        return false
     }
 
     override fun onPause() {
