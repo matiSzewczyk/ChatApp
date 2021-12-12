@@ -91,10 +91,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-    private fun clearInput() {
-        binding.registerPasswordConfirm.text.clear()
-        binding.registerPassword.text.clear()
-        binding.registerUsername.text.clear()
+    private fun clearInput() = binding.apply {
+        registerPasswordConfirm.text.clear()
+        registerPassword.text.clear()
+        registerUsername.text.clear()
     }
 
     private fun inputsNotEmpty(): Boolean = when {

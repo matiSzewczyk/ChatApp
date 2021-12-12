@@ -40,9 +40,10 @@ class ChatViewModel : ViewModel() {
                 val currentMsgTime = LocalDateTime.parse(currentMsg.timestamp, formatter)
 
                 if (sentWithinTwoMinutes(previousMsgTime, currentMsgTime)
-                    && sentBySameUser(previousMsg, currentMsg)) {
-                        previousMsg.message = previousMsg.message + "\n${currentMsg.message}"
-                        bgRealm.copyToRealmOrUpdate(previousMsg)
+                    && sentBySameUser(previousMsg, currentMsg)
+                ) {
+                    previousMsg.message = previousMsg.message + "\n${currentMsg.message}"
+                    bgRealm.copyToRealmOrUpdate(previousMsg)
                 } else {
                     bgRealm.copyToRealmOrUpdate(currentMsg)
                 }
@@ -52,11 +53,14 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    private fun sentWithinTwoMinutes(previousMsgTime: LocalDateTime, currentMsgTime: LocalDateTime) : Boolean {
+    private fun sentWithinTwoMinutes(
+        previousMsgTime: LocalDateTime,
+        currentMsgTime: LocalDateTime
+    ): Boolean {
         return previousMsgTime.isAfter(currentMsgTime.minusMinutes(2))
     }
 
-    private fun sentBySameUser(previousMsg: Message, currentMsg: Message) : Boolean {
+    private fun sentBySameUser(previousMsg: Message, currentMsg: Message): Boolean {
         return previousMsg.username == currentMsg.username
     }
 
@@ -66,7 +70,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    fun getMessages() :RealmResults<Message> {
+    fun getMessages(): RealmResults<Message> {
         return realm.where(Message::class.java)
             .findAll()
             .sort("timestamp", Sort.ASCENDING)
