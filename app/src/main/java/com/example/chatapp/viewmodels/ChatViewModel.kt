@@ -53,17 +53,11 @@ class ChatViewModel : ViewModel() {
     }
 
     private fun sentWithinTwoMinutes(previousMsgTime: LocalDateTime, currentMsgTime: LocalDateTime) : Boolean {
-        if (previousMsgTime.isAfter(currentMsgTime.minusMinutes(2)))  {
-            return true
-        }
-        return false
+        return previousMsgTime.isAfter(currentMsgTime.minusMinutes(2))
     }
 
     private fun sentBySameUser(previousMsg: Message, currentMsg: Message) : Boolean {
-        if (previousMsg.username == currentMsg.username) {
-            return true
-        }
-        return false
+        return previousMsg.username == currentMsg.username
     }
 
     fun clearDatabase() {
