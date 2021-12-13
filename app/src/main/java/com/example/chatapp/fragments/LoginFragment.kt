@@ -55,7 +55,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 createRealm()
                 findNavController().navigate(action)
             } else {
-                Toast.makeText(requireContext(), "Name or password incorrect.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Name or password incorrect.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -73,16 +74,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun inputsNotEmpty(): Boolean {
         if (binding.loginUsername.text.isNotEmpty()
-            && binding.loginPassword.text.isNotEmpty()) {
+            && binding.loginPassword.text.isNotEmpty()
+        ) {
             return true
         }
-        Toast.makeText(requireContext(), "Cannot leave any fields empty.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Cannot leave any fields empty.", Toast.LENGTH_SHORT)
+            .show()
         return false
     }
 
     private fun containsWhitespace(): Boolean {
         return if (binding.loginUsername.text.contains(" ")) {
-            Toast.makeText(requireContext(), "Username cannot contain whitespace.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Username cannot contain whitespace.",
+                Toast.LENGTH_SHORT
+            ).show()
             true
         } else false
     }
