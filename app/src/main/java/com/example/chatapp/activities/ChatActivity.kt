@@ -16,11 +16,11 @@ import com.example.chatapp.chatApp
 import com.example.chatapp.databinding.ActivityChatBinding
 import com.example.chatapp.realm.Message
 import com.example.chatapp.viewmodels.ChatViewModel
-import io.realm.*
+import io.realm.RealmChangeListener
+import io.realm.RealmResults
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
 
 class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -47,7 +47,7 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun setupRecyclerView() = binding.chat.apply{
+    private fun setupRecyclerView() = binding.chat.apply {
         chatAdapter = ChatAdapter(
             chatViewModel.getMessages()
         )
@@ -99,7 +99,8 @@ class ChatActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun hideSoftKeyboard(view: View) {
-        val imm = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
         view.clearFocus()
     }

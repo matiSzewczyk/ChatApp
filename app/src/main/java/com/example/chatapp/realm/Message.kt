@@ -8,7 +8,8 @@ import java.util.*
 
 @RealmClass
 open class Message : RealmObject() {
-    @PrimaryKey @RealmField("_id")
+    @PrimaryKey
+    @RealmField("_id")
     var id: String = UUID.randomUUID().toString()
 
     var username: String = ""

@@ -53,7 +53,7 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
 
         binding.connectToRoomBtn.setOnClickListener {
             if (isPrivate()) {
-                 showPasswordInput()
+                showPasswordInput()
             } else {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
                     connect()
@@ -89,12 +89,14 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun showSoftKeyboard(view: View) {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun hideSoftKeyboard(view: View) {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
         view.clearFocus()
     }
@@ -124,7 +126,8 @@ class RoomMenuFragment : Fragment(R.layout.fragment_room_menu), AdapterView.OnIt
     }
 
     private fun connect() {
-        _partition = roomMenuViewModel.roomList[roomMenuViewModel.index]!!.name // Change the chat room
+        _partition =
+            roomMenuViewModel.roomList[roomMenuViewModel.index]!!.name // Change the chat room
         val intent = Intent(requireContext(), ChatActivity::class.java)
         startActivity(intent)
     }

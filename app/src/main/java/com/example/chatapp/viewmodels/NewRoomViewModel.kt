@@ -14,6 +14,7 @@ class NewRoomViewModel : ViewModel() {
         room.password = password
         saveRoom(room)
     }
+
     private fun saveRoom(room: ChatRoom) {
         realm.executeTransactionAsync { bgRealm ->
             bgRealm.copyToRealmOrUpdate(room)
@@ -21,9 +22,9 @@ class NewRoomViewModel : ViewModel() {
         }
     }
 
-   fun roomExists(roomName: String): Boolean {
-       realm.where(ChatRoom::class.java).equalTo("name", roomName).findFirst()
-           ?: return false
-       return true
+    fun roomExists(roomName: String): Boolean {
+        realm.where(ChatRoom::class.java).equalTo("name", roomName).findFirst()
+            ?: return false
+        return true
     }
 }
